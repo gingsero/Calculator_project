@@ -10,46 +10,49 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
+    TextView calculatorHistory = null;
     TextView calculatorSymbol = null;
     TextView calculatorNumber = null;
 
-    Button button_ac = null;
-    Button button_pm = null;
-    Button button_per = null;
-    Button button_dev = null;
 
-    Button button_7 = null;
-    Button button_8 = null;
-    Button button_9 = null;
-    Button button_mul = null;
-
-    Button button_4 = null;
-    Button button_5 = null;
-    Button button_6 = null;
-    Button button_min = null;
 
     Button button_1 = null;
     Button button_2 = null;
     Button button_3 = null;
-    Button button_plu = null;
-
+    Button button_4 = null;
+    Button button_5 = null;
+    Button button_6 = null;
+    Button button_7 = null;
+    Button button_8 = null;
+    Button button_9 = null;
     Button button_0 = null;
+
+    Button button_dev = null;
+    Button button_mul = null;
+    Button button_plu = null;
+    Button button_min = null;
+
     Button button_dot = null;
     Button button_equ = null;
+    Button button_ac = null;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        calculatorHistory = (TextView) findViewById(R.id.calculatorHistory);
         calculatorSymbol = (TextView) findViewById(R.id.calculatorSymbol);
         calculatorNumber = (TextView) findViewById(R.id.calculatorNumber);
+
+        calculatorHistory.setText(null);
         calculatorSymbol.setText(null);
         calculatorNumber.setText("0");
 //        Button initialize
         button_ac = (Button) findViewById(R.id.button_ac);
-        button_pm = (Button) findViewById(R.id.button_pm);
-        button_per = (Button) findViewById(R.id.button_per);
         button_dev = (Button) findViewById(R.id.button_dev);
 
         button_7 = (Button) findViewById(R.id.button_7);
@@ -74,8 +77,6 @@ public class MainActivity extends AppCompatActivity {
 
 //        Listener bridge
         button_ac.setOnClickListener(mClickListener);
-        button_pm.setOnClickListener(mClickListener);
-        button_per.setOnClickListener(mClickListener);
         button_dev.setOnClickListener(mClickListener);
 
         button_7.setOnClickListener(mClickListener);
@@ -112,47 +113,105 @@ public class MainActivity extends AppCompatActivity {
 
             switch (v.getId()){
                 case R.id.button_ac:
+                    calculatorHistory.setText(null);
                     calculatorSymbol.setText(null);
                     calculatorNumber.setText("0");
                     button_ac.setText("AC");
                     break;
-                case R.id.button_pm:
-                    strValue = calculatorNumber.getText().toString();
-                    if(strValue.contains("-")){
-                        strValue = strValue.replace("-", "");
+
+                case R.id.button_1:
+                    if(calculatorNumber.getText()!="0"){
+                        strValue = calculatorNumber.getText().toString() + "1";
+                        calculatorNumber.setText(strValue);
                     } else {
-                        strValue = "-" + strValue;
+                        strValue = "1";
+                        calculatorNumber.setText(strValue);
                     }
-
-                    calculatorSymbol.setText("+/-");
-                    calculatorNumber.setText(strValue);
-
                     break;
-                case R.id.button_per:
-                    if(calculatorSymbol.getText().toString().contains("%")){
-                        break;
-                    }
-                    if(calculatorNumber.getText().toString()!=null){
-                        if(calculatorSymbol.getText().toString()!=null){
-                            calculatorSymbol.setText("%");
-                        }
-                        intValue = Integer.valueOf(calculatorNumber.getText().toString());
-                        try{
-                            intValue = intValue%100;
-                            calculatorNumber.setText(String.valueOf(intValue));
-                        } catch (Exception e){
-                            calculatorNumber.setText("0");
-                            Toast.makeText(getApplicationContext(), "잘못된 값이 입력되었습니다", Toast.LENGTH_SHORT).show();
-                        }
-                        calculatorNumber.setText(intValue);
+                case R.id.button_2:
+                    if(calculatorNumber.getText()!="0"){
+                        strValue = calculatorNumber.getText().toString() + "2";
+                        calculatorNumber.setText(strValue);
                     } else {
-                        Toast.makeText(getApplicationContext(), "값을 입력하세요.", Toast.LENGTH_SHORT).show();
-                        calculatorSymbol.setText(null);
-                        calculatorNumber.setText("0");
-                        button_ac.setText("AC");
+                        strValue = "2";
+                        calculatorNumber.setText(strValue);
                     }
-
                     break;
+                case R.id.button_3:
+                    if(calculatorNumber.getText()!="0"){
+                        strValue = calculatorNumber.getText().toString() + "3";
+                        calculatorNumber.setText(strValue);
+                    } else {
+                        strValue = "3";
+                        calculatorNumber.setText(strValue);
+                    }
+                    break;
+                case R.id.button_4:
+                    if(calculatorNumber.getText()!="0"){
+                        strValue = calculatorNumber.getText().toString() + "4";
+                        calculatorNumber.setText(strValue);
+                    } else {
+                        strValue = "4";
+                        calculatorNumber.setText(strValue);
+                    }
+                    break;
+                case R.id.button_5:
+                    if(calculatorNumber.getText()!="0"){
+                        strValue = calculatorNumber.getText().toString() + "5";
+                        calculatorNumber.setText(strValue);
+                    } else {
+                        strValue = "5";
+                        calculatorNumber.setText(strValue);
+                    }
+                    break;
+                case R.id.button_6:
+                    if(calculatorNumber.getText()!="0"){
+                        strValue = calculatorNumber.getText().toString() + "6";
+                        calculatorNumber.setText(strValue);
+                    } else {
+                        strValue = "6";
+                        calculatorNumber.setText(strValue);
+                    }
+                    break;
+                case R.id.button_7:
+                    if(calculatorNumber.getText()!="0"){
+                        strValue = calculatorNumber.getText().toString() + "7";
+                        calculatorNumber.setText(strValue);
+                    } else {
+                        strValue = "7";
+                        calculatorNumber.setText(strValue);
+                    }
+                    break;
+                case R.id.button_8:
+                    if(calculatorNumber.getText()!="0"){
+                        strValue = calculatorNumber.getText().toString() + "8";
+                        calculatorNumber.setText(strValue);
+                    } else {
+                        strValue = "8";
+                        calculatorNumber.setText(strValue);
+                    }
+                    break;
+                case R.id.button_9:
+                    if(calculatorNumber.getText()!="0"){
+                        strValue = calculatorNumber.getText().toString() + "9";
+                        calculatorNumber.setText(strValue);
+                    } else {
+                        strValue = "9";
+                        calculatorNumber.setText(strValue);
+                    }
+                    break;
+                case R.id.button_0:
+                    if(calculatorNumber.getText()!="0"){
+                        strValue = calculatorNumber.getText().toString() + "0";
+                        calculatorNumber.setText(strValue);
+                    } else {
+                        strValue = "0";
+                        calculatorNumber.setText(strValue);
+                    }
+                    break;
+
+
+
                 case R.id.button_dev:
                     if(calculatorSymbol.getText().toString().contains("÷")){
                         break;
@@ -219,146 +278,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
 
 
-                case R.id.button_1:
-                    if(calculatorNumber.getText()!=null){
-                        if(calculatorNumber.getText()!="0"){
-                            strValue = calculatorNumber.getText().toString() + "1";
-                            calculatorNumber.setText(strValue);
-                        } else {
-                            strValue = "1";
-                            calculatorNumber.setText(strValue);
-                        }
-                    } else {
-                        calculatorSymbol.setText(null);
-                        calculatorNumber.setText("1");
-                    }
-                    break;
-                case R.id.button_2:
-                    if(calculatorNumber.getText()!=null){
-                        if(calculatorNumber.getText()!="0"){
-                            strValue = calculatorNumber.getText().toString() + "2";
-                            calculatorNumber.setText(strValue);
-                        } else {
-                            strValue = "2";
-                            calculatorNumber.setText(strValue);
-                        }
-                    } else {
-                        calculatorSymbol.setText(null);
-                        calculatorNumber.setText("2");
-                    }
-                    break;
-                case R.id.button_3:
-                    if(calculatorNumber.getText()!=null){
-                        if(calculatorNumber.getText()!="0"){
-                            strValue = calculatorNumber.getText().toString() + "3";
-                            calculatorNumber.setText(strValue);
-                        } else {
-                            strValue = "3";
-                            calculatorNumber.setText(strValue);
-                        }
-                    } else {
-                        calculatorSymbol.setText(null);
-                        calculatorNumber.setText("3");
-                    }
-                    break;
-                case R.id.button_4:
-                    if(calculatorNumber.getText()!=null){
-                        if(calculatorNumber.getText()!="0"){
-                            strValue = calculatorNumber.getText().toString() + "4";
-                            calculatorNumber.setText(strValue);
-                        } else {
-                            strValue = "4";
-                            calculatorNumber.setText(strValue);
-                        }
-                    } else {
-                        calculatorSymbol.setText(null);
-                        calculatorNumber.setText("4");
-                    }
-                    break;
-                case R.id.button_5:
-                    if(calculatorNumber.getText()!=null){
-                        if(calculatorNumber.getText()!="0"){
-                            strValue = calculatorNumber.getText().toString() + "5";
-                            calculatorNumber.setText(strValue);
-                        } else {
-                            strValue = "5";
-                            calculatorNumber.setText(strValue);
-                        }
-                    } else {
-                        calculatorSymbol.setText(null);
-                        calculatorNumber.setText("5");
-                    }
-                    break;
-                case R.id.button_6:
-                    if(calculatorNumber.getText()!=null){
-                        if(calculatorNumber.getText()!="0"){
-                            strValue = calculatorNumber.getText().toString() + "6";
-                            calculatorNumber.setText(strValue);
-                        } else {
-                            strValue = "6";
-                            calculatorNumber.setText(strValue);
-                        }
-                    } else {
-                        calculatorSymbol.setText(null);
-                        calculatorNumber.setText("6");
-                    }
-                    break;
-                case R.id.button_7:
-                    if(calculatorNumber.getText()!=null){
-                        if(calculatorNumber.getText()!="0"){
-                            strValue = calculatorNumber.getText().toString() + "7";
-                            calculatorNumber.setText(strValue);
-                        } else {
-                            strValue = "7";
-                            calculatorNumber.setText(strValue);
-                        }
-                    } else {
-                        calculatorSymbol.setText(null);
-                        calculatorNumber.setText("7");
-                    }
-                    break;
-                case R.id.button_8:
-                    if(calculatorNumber.getText()!=null){
-                        if(calculatorNumber.getText()!="0"){
-                            strValue = calculatorNumber.getText().toString() + "8";
-                            calculatorNumber.setText(strValue);
-                        } else {
-                            strValue = "8";
-                            calculatorNumber.setText(strValue);
-                        }
-                    } else {
-                        calculatorSymbol.setText(null);
-                        calculatorNumber.setText("8");
-                    }
-                    break;
-                case R.id.button_9:
-                    if(calculatorNumber.getText()!=null){
-                        if(calculatorNumber.getText()!="0"){
-                            strValue = calculatorNumber.getText().toString() + "9";
-                            calculatorNumber.setText(strValue);
-                        } else {
-                            strValue = "9";
-                            calculatorNumber.setText(strValue);
-                        }
-                    } else {
-                        calculatorSymbol.setText(null);
-                        calculatorNumber.setText("9");
-                    }
-                    break;
-                case R.id.button_0:
-                    if(calculatorNumber.getText()!=null){
-                        if(calculatorNumber.getText()!="0"){
-                            strValue = calculatorNumber.getText().toString() + "0";
-                            calculatorNumber.setText(strValue);
-                        } else {
-                            strValue = "0";
-                            calculatorNumber.setText(strValue);
-                        }
-                    } else {
-                        calculatorSymbol.setText(null);
-                        calculatorNumber.setText("0");
-                    }
-                    break;
+
 
 
 
