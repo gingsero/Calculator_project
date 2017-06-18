@@ -34,6 +34,11 @@ public class MainActivity extends AppCompatActivity {
     Button button_equ = null;
     Button button_ac = null;
 
+    String hisValue = null;
+    String hidValue = null;
+    String strValue = null;
+    String symValue = null;
+
     final static String zer = "0";
     final static String plu = "+";
     final static String min = "-";
@@ -114,14 +119,14 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 button_ac.setText("AC");
             }
-            String hisValue = calculatorHistory.getText().toString().trim();
-            String strValue = calculatorNumber.getText().toString().trim();
-            String symValue = calculatorSymbol.getText().toString().trim();
-            String hidValue = calculatorHiddenNumber.getText().toString().trim();
+            hisValue = calculatorHistory.getText().toString().trim();
+            strValue = calculatorNumber.getText().toString().trim();
+            symValue = calculatorSymbol.getText().toString().trim();
+            hidValue = calculatorHiddenNumber.getText().toString().trim();
 
             String calculResult = null;
 
-            if(symValue.length()>0){
+            /*if(symValue.length()>0){
                 System.out.println("symValue.equals(null) : false / " + symValue.length());
             } else {
                 System.out.println("symValue.equals(null) : true");
@@ -136,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
             System.out.println("hisValue : " + hisValue);
             System.out.println("strValue : " + strValue);
             System.out.println("symValue : " + symValue);
-            System.out.println("hidValue : " + hidValue);
+            System.out.println("hidValue : " + hidValue);*/
 
 
             switch (v.getId()){
@@ -148,746 +153,379 @@ public class MainActivity extends AppCompatActivity {
                     break;
 
                 case R.id.button_1:
-                    if(strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){ // 초기 입력 상태
+                    System.out.println("button_1");
+                    if(strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){ // 0 0 0
+                        System.out.println("button_1 : 1");
+                        calculatorNumber.setText("1");
+                    } else if(strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){ // 0 1 0
+                        System.out.println("button_1 : 2");
                         if(strValue.equals(zer)){
                             calculatorNumber.setText("1");
                         } else {
-                            calculatorNumber.setText(strValue + "1");
+                            calculatorNumber.setText(strValue + "1"); // 실행 안되는 코드 > 테스트 후 삭제 예정
                         }
-                    }
-                    else if(strValue.equals(zer)&&!(symValue.length()>0)&&(hidValue.length()>0)){ // 계산 에러 식
+                    } else if(!strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){ // 1 0 0
+                        System.out.println("button_1 : 3");
+                        strValue = calculatorNumber.getText().toString();
                         if(strValue.equals(zer)){
-                            calculatorNumber.setText("1");
+                            calculatorNumber.setText("1"); // 실행 안되는 코드 > 테스트 후 삭제 예정
                         } else {
                             calculatorNumber.setText(strValue + "1");
                         }
-                        calculatorSymbol.setText(null);
-                        calculatorHiddenNumber.setText(null);
-                    }
-                    else if(strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){ // 0 1 0 상태에서 1 1 0 상태로 변경
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("1");
-                        } else {
-                            calculatorNumber.setText(strValue + "1");
-                        }
-                    }
-                    else if(strValue.equals(zer)&&(symValue.length()>0)&&(hidValue.length()>0)){ // 계산 에러 식
-                        calculatorHiddenNumber.setText(null);
-                        calculatorSymbol.setText(null);
-
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("1");
-                        } else {
-                            calculatorNumber.setText(strValue + "1");
-                        }
-                    }
-                    else if(!strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("1");
-                        } else {
-                            calculatorNumber.setText(strValue + "1");
-                        }
-                    }
-                    else if(!strValue.equals(zer)&&!(symValue.length()>0)&&(hidValue.length()>0)){ // 계산 에러 식
-                        calculatorHiddenNumber.setText(null);
-                        calculatorSymbol.setText(null);
-
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("1");
-                        } else {
-                            calculatorNumber.setText(strValue + "1");
-                        }
-                    }
-                    else if(!strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){ // strValue > hidValue로 이동 시킴
-                        calculatorHiddenNumber.setText(strValue);
+                    } else if(!strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){ // 1 1 0
+                        System.out.println("button_1 : 4");
+                        strValue = calculatorNumber.getText().toString();
+                        hidValue = strValue;
                         calculatorNumber.setText(zer);
-
+                        strValue = calculatorNumber.getText().toString();
                         if(strValue.equals(zer)){
                             calculatorNumber.setText("1");
                         } else {
-                            calculatorNumber.setText(strValue + "1");
+                            calculatorNumber.setText(strValue + "1"); // 실행 안되는 코드 > 테스트 후 삭제 예정
                         }
-                    } 
-                    else if(!strValue.equals(zer)&&(symValue.length()>0)&&(hidValue.length()>0)){ // 연산
+                    } else if(!strValue.equals(zer)&&(symValue.length()>0)&&(hidValue.length()>0)){ // 1 1 1
+                        System.out.println("button_1 : 5");
                         if(strValue.equals(zer)){
-                            calculatorNumber.setText("1");
+                            calculatorNumber.setText("1"); // 실행 안되는 코드 > 테스트 후 삭제 예정
                         } else {
                             calculatorNumber.setText(strValue + "1");
                         }
-                    }
-                    else{
-                        System.out.println("덧셈 에러 식");
+                    } else {
+                        System.out.println("1번 버튼 에러");
                     }
                     break;
                 case R.id.button_2:
-                    if(strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){ // 초기 입력 상태
+                    if(strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){
+                        calculatorNumber.setText("2");
+                    } else if(strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){
                         if(strValue.equals(zer)){
                             calculatorNumber.setText("2");
                         } else {
                             calculatorNumber.setText(strValue + "2");
                         }
-                    }
-                    else if(strValue.equals(zer)&&!(symValue.length()>0)&&(hidValue.length()>0)){ // 계산 에러 식
+                    } else if(!strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){
                         if(strValue.equals(zer)){
                             calculatorNumber.setText("2");
                         } else {
                             calculatorNumber.setText(strValue + "2");
                         }
-                        calculatorSymbol.setText(null);
-                        calculatorHiddenNumber.setText(null);
-                    }
-                    else if(strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){ // 0 1 0 상태에서 1 1 0 상태로 변경
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("2");
-                        } else {
-                            calculatorNumber.setText(strValue + "2");
-                        }
-                    }
-                    else if(strValue.equals(zer)&&(symValue.length()>0)&&(hidValue.length()>0)){ // 계산 에러 식
-                        calculatorHiddenNumber.setText(null);
-                        calculatorSymbol.setText(null);
-
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("2");
-                        } else {
-                            calculatorNumber.setText(strValue + "2");
-                        }
-                    }
-                    else if(!strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("2");
-                        } else {
-                            calculatorNumber.setText(strValue + "2");
-                        }
-                    }
-                    else if(!strValue.equals(zer)&&!(symValue.length()>0)&&(hidValue.length()>0)){ // 계산 에러 식
-                        calculatorHiddenNumber.setText(null);
-                        calculatorSymbol.setText(null);
-
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("2");
-                        } else {
-                            calculatorNumber.setText(strValue + "2");
-                        }
-                    }
-                    else if(!strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){ // strValue > hidValue로 이동 시킴
-                        calculatorHiddenNumber.setText(strValue);
+                    } else if(!strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){
+                        hidValue = strValue;
                         calculatorNumber.setText(zer);
-
+                        strValue = calculatorNumber.getText().toString();
                         if(strValue.equals(zer)){
                             calculatorNumber.setText("2");
                         } else {
-                            calculatorNumber.setText(strValue + "2");
+                            calculatorNumber.setText(strValue + "2"); // 실행 안되는 코드 > 테스트 후 삭제 예정
                         }
-                    }
-                    else if(!strValue.equals(zer)&&(symValue.length()>0)&&(hidValue.length()>0)){ // 연산
+                    } else if(!strValue.equals(zer)&&(symValue.length()>0)&&(hidValue.length()>0)){
                         if(strValue.equals(zer)){
-                            calculatorNumber.setText("2");
+                            calculatorNumber.setText("2"); // 실행 안되는 코드 > 테스트 후 삭제 예정
                         } else {
                             calculatorNumber.setText(strValue + "2");
                         }
-                    }
-                    else{
-                        System.out.println("덧셈 에러 식");
+                    } else {
+                        System.out.println("2번 버튼 에러");
                     }
                     break;
                 case R.id.button_3:
-                    if(strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){ // 초기 입력 상태
+                    if(strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){
+                        calculatorNumber.setText("3");
+                    } else if(strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){
                         if(strValue.equals(zer)){
                             calculatorNumber.setText("3");
                         } else {
                             calculatorNumber.setText(strValue + "3");
                         }
-                    }
-                    else if(strValue.equals(zer)&&!(symValue.length()>0)&&(hidValue.length()>0)){ // 계산 에러 식
+                    } else if(!strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){
                         if(strValue.equals(zer)){
                             calculatorNumber.setText("3");
                         } else {
                             calculatorNumber.setText(strValue + "3");
                         }
-                        calculatorSymbol.setText(null);
-                        calculatorHiddenNumber.setText(null);
-                    }
-                    else if(strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){ // 0 1 0 상태에서 1 1 0 상태로 변경
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("3");
-                        } else {
-                            calculatorNumber.setText(strValue + "3");
-                        }
-                    }
-                    else if(strValue.equals(zer)&&(symValue.length()>0)&&(hidValue.length()>0)){ // 계산 에러 식
-                        calculatorHiddenNumber.setText(null);
-                        calculatorSymbol.setText(null);
-
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("3");
-                        } else {
-                            calculatorNumber.setText(strValue + "3");
-                        }
-                    }
-                    else if(!strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("3");
-                        } else {
-                            calculatorNumber.setText(strValue + "3");
-                        }
-                    }
-                    else if(!strValue.equals(zer)&&!(symValue.length()>0)&&(hidValue.length()>0)){ // 계산 에러 식
-                        calculatorHiddenNumber.setText(null);
-                        calculatorSymbol.setText(null);
-
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("3");
-                        } else {
-                            calculatorNumber.setText(strValue + "3");
-                        }
-                    }
-                    else if(!strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){ // strValue > hidValue로 이동 시킴
-                        calculatorHiddenNumber.setText(strValue);
+                    } else if(!strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){
+                        hidValue = strValue;
                         calculatorNumber.setText(zer);
-
+                        strValue = calculatorNumber.getText().toString();
                         if(strValue.equals(zer)){
                             calculatorNumber.setText("3");
                         } else {
-                            calculatorNumber.setText(strValue + "3");
+                            calculatorNumber.setText(strValue + "3"); // 실행 안되는 코드 > 테스트 후 삭제 예정
                         }
-                    }
-                    else if(!strValue.equals(zer)&&(symValue.length()>0)&&(hidValue.length()>0)){ // 연산
+                    } else if(!strValue.equals(zer)&&(symValue.length()>0)&&(hidValue.length()>0)){
                         if(strValue.equals(zer)){
-                            calculatorNumber.setText("3");
+                            calculatorNumber.setText("3"); // 실행 안되는 코드 > 테스트 후 삭제 예정
                         } else {
                             calculatorNumber.setText(strValue + "3");
                         }
-                    }
-                    else{
-                        System.out.println("덧셈 에러 식");
+                    } else {
+                        System.out.println("3번 버튼 에러");
                     }
                     break;
                 case R.id.button_4:
-                    if(strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){ // 초기 입력 상태
+                    if(strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){
+                        calculatorNumber.setText("4");
+                    } else if(strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){
                         if(strValue.equals(zer)){
                             calculatorNumber.setText("4");
                         } else {
                             calculatorNumber.setText(strValue + "4");
                         }
-                    }
-                    else if(strValue.equals(zer)&&!(symValue.length()>0)&&(hidValue.length()>0)){ // 계산 에러 식
+                    } else if(!strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){
                         if(strValue.equals(zer)){
                             calculatorNumber.setText("4");
                         } else {
                             calculatorNumber.setText(strValue + "4");
                         }
-                        calculatorSymbol.setText(null);
-                        calculatorHiddenNumber.setText(null);
-                    }
-                    else if(strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){ // 0 1 0 상태에서 1 1 0 상태로 변경
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("4");
-                        } else {
-                            calculatorNumber.setText(strValue + "4");
-                        }
-                    }
-                    else if(strValue.equals(zer)&&(symValue.length()>0)&&(hidValue.length()>0)){ // 계산 에러 식
-                        calculatorHiddenNumber.setText(null);
-                        calculatorSymbol.setText(null);
-
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("4");
-                        } else {
-                            calculatorNumber.setText(strValue + "4");
-                        }
-                    }
-                    else if(!strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("4");
-                        } else {
-                            calculatorNumber.setText(strValue + "4");
-                        }
-                    }
-                    else if(!strValue.equals(zer)&&!(symValue.length()>0)&&(hidValue.length()>0)){ // 계산 에러 식
-                        calculatorHiddenNumber.setText(null);
-                        calculatorSymbol.setText(null);
-
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("4");
-                        } else {
-                            calculatorNumber.setText(strValue + "4");
-                        }
-                    }
-                    else if(!strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){ // strValue > hidValue로 이동 시킴
-                        calculatorHiddenNumber.setText(strValue);
+                    } else if(!strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){
+                        hidValue = strValue;
                         calculatorNumber.setText(zer);
-
+                        strValue = calculatorNumber.getText().toString();
                         if(strValue.equals(zer)){
                             calculatorNumber.setText("4");
                         } else {
-                            calculatorNumber.setText(strValue + "4");
+                            calculatorNumber.setText(strValue + "4"); // 실행 안되는 코드 > 테스트 후 삭제 예정
                         }
-                    }
-                    else if(!strValue.equals(zer)&&(symValue.length()>0)&&(hidValue.length()>0)){ // 연산
+                    } else if(!strValue.equals(zer)&&(symValue.length()>0)&&(hidValue.length()>0)){
                         if(strValue.equals(zer)){
-                            calculatorNumber.setText("4");
+                            calculatorNumber.setText("4"); // 실행 안되는 코드 > 테스트 후 삭제 예정
                         } else {
                             calculatorNumber.setText(strValue + "4");
                         }
-                    }
-                    else{
-                        System.out.println("덧셈 에러 식");
+                    } else {
+                        System.out.println("4번 버튼 에러");
                     }
                     break;
                 case R.id.button_5:
-                    if(strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){ // 초기 입력 상태
+                    if(strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){
+                        calculatorNumber.setText("5");
+                    } else if(strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){
                         if(strValue.equals(zer)){
                             calculatorNumber.setText("5");
                         } else {
                             calculatorNumber.setText(strValue + "5");
                         }
-                    }
-                    else if(strValue.equals(zer)&&!(symValue.length()>0)&&(hidValue.length()>0)){ // 계산 에러 식
+                    } else if(!strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){
                         if(strValue.equals(zer)){
                             calculatorNumber.setText("5");
                         } else {
                             calculatorNumber.setText(strValue + "5");
                         }
-                        calculatorSymbol.setText(null);
-                        calculatorHiddenNumber.setText(null);
-                    }
-                    else if(strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){ // 0 1 0 상태에서 1 1 0 상태로 변경
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("5");
-                        } else {
-                            calculatorNumber.setText(strValue + "5");
-                        }
-                    }
-                    else if(strValue.equals(zer)&&(symValue.length()>0)&&(hidValue.length()>0)){ // 계산 에러 식
-                        calculatorHiddenNumber.setText(null);
-                        calculatorSymbol.setText(null);
-
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("5");
-                        } else {
-                            calculatorNumber.setText(strValue + "5");
-                        }
-                    }
-                    else if(!strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("5");
-                        } else {
-                            calculatorNumber.setText(strValue + "5");
-                        }
-                    }
-                    else if(!strValue.equals(zer)&&!(symValue.length()>0)&&(hidValue.length()>0)){ // 계산 에러 식
-                        calculatorHiddenNumber.setText(null);
-                        calculatorSymbol.setText(null);
-
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("5");
-                        } else {
-                            calculatorNumber.setText(strValue + "5");
-                        }
-                    }
-                    else if(!strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){ // strValue > hidValue로 이동 시킴
-                        calculatorHiddenNumber.setText(strValue);
+                    } else if(!strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){
+                        hidValue = strValue;
                         calculatorNumber.setText(zer);
-
+                        strValue = calculatorNumber.getText().toString();
                         if(strValue.equals(zer)){
                             calculatorNumber.setText("5");
                         } else {
-                            calculatorNumber.setText(strValue + "5");
+                            calculatorNumber.setText(strValue + "5"); // 실행 안되는 코드 > 테스트 후 삭제 예정
                         }
-                    }
-                    else if(!strValue.equals(zer)&&(symValue.length()>0)&&(hidValue.length()>0)){ // 연산
+                    } else if(!strValue.equals(zer)&&(symValue.length()>0)&&(hidValue.length()>0)){
                         if(strValue.equals(zer)){
-                            calculatorNumber.setText("5");
+                            calculatorNumber.setText("5"); // 실행 안되는 코드 > 테스트 후 삭제 예정
                         } else {
                             calculatorNumber.setText(strValue + "5");
                         }
-                    }
-                    else{
-                        System.out.println("덧셈 에러 식");
+                    } else {
+                        System.out.println("5번 버튼 에러");
                     }
                     break;
                 case R.id.button_6:
-                    if(strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){ // 초기 입력 상태
+                    if(strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){
+                        calculatorNumber.setText("6");
+                    } else if(strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){
                         if(strValue.equals(zer)){
                             calculatorNumber.setText("6");
                         } else {
                             calculatorNumber.setText(strValue + "6");
                         }
-                    }
-                    else if(strValue.equals(zer)&&!(symValue.length()>0)&&(hidValue.length()>0)){ // 계산 에러 식
+                    } else if(!strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){
                         if(strValue.equals(zer)){
                             calculatorNumber.setText("6");
                         } else {
                             calculatorNumber.setText(strValue + "6");
                         }
-                        calculatorSymbol.setText(null);
-                        calculatorHiddenNumber.setText(null);
-                    }
-                    else if(strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){ // 0 1 0 상태에서 1 1 0 상태로 변경
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("6");
-                        } else {
-                            calculatorNumber.setText(strValue + "6");
-                        }
-                    }
-                    else if(strValue.equals(zer)&&(symValue.length()>0)&&(hidValue.length()>0)){ // 계산 에러 식
-                        calculatorHiddenNumber.setText(null);
-                        calculatorSymbol.setText(null);
-
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("6");
-                        } else {
-                            calculatorNumber.setText(strValue + "6");
-                        }
-                    }
-                    else if(!strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("6");
-                        } else {
-                            calculatorNumber.setText(strValue + "6");
-                        }
-                    }
-                    else if(!strValue.equals(zer)&&!(symValue.length()>0)&&(hidValue.length()>0)){ // 계산 에러 식
-                        calculatorHiddenNumber.setText(null);
-                        calculatorSymbol.setText(null);
-
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("6");
-                        } else {
-                            calculatorNumber.setText(strValue + "6");
-                        }
-                    }
-                    else if(!strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){ // strValue > hidValue로 이동 시킴
-                        calculatorHiddenNumber.setText(strValue);
+                    } else if(!strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){
+                        hidValue = strValue;
                         calculatorNumber.setText(zer);
-
+                        strValue = calculatorNumber.getText().toString();
                         if(strValue.equals(zer)){
                             calculatorNumber.setText("6");
                         } else {
-                            calculatorNumber.setText(strValue + "6");
+                            calculatorNumber.setText(strValue + "6"); // 실행 안되는 코드 > 테스트 후 삭제 예정
                         }
-                    }
-                    else if(!strValue.equals(zer)&&(symValue.length()>0)&&(hidValue.length()>0)){ // 연산
+                    } else if(!strValue.equals(zer)&&(symValue.length()>0)&&(hidValue.length()>0)){
                         if(strValue.equals(zer)){
-                            calculatorNumber.setText("6");
+                            calculatorNumber.setText("6"); // 실행 안되는 코드 > 테스트 후 삭제 예정
                         } else {
                             calculatorNumber.setText(strValue + "6");
                         }
-                    }
-                    else{
-                        System.out.println("덧셈 에러 식");
+                    } else {
+                        System.out.println("6번 버튼 에러");
                     }
                     break;
                 case R.id.button_7:
-                    if(strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){ // 초기 입력 상태
+                    if(strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){
+                        calculatorNumber.setText("7");
+                    } else if(strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){
                         if(strValue.equals(zer)){
                             calculatorNumber.setText("7");
                         } else {
                             calculatorNumber.setText(strValue + "7");
                         }
-                    }
-                    else if(strValue.equals(zer)&&!(symValue.length()>0)&&(hidValue.length()>0)){ // 계산 에러 식
+                    } else if(!strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){
                         if(strValue.equals(zer)){
                             calculatorNumber.setText("7");
                         } else {
                             calculatorNumber.setText(strValue + "7");
                         }
-                        calculatorSymbol.setText(null);
-                        calculatorHiddenNumber.setText(null);
-                    }
-                    else if(strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){ // 0 1 0 상태에서 1 1 0 상태로 변경
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("7");
-                        } else {
-                            calculatorNumber.setText(strValue + "7");
-                        }
-                    }
-                    else if(strValue.equals(zer)&&(symValue.length()>0)&&(hidValue.length()>0)){ // 계산 에러 식
-                        calculatorHiddenNumber.setText(null);
-                        calculatorSymbol.setText(null);
-
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("7");
-                        } else {
-                            calculatorNumber.setText(strValue + "7");
-                        }
-                    }
-                    else if(!strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("7");
-                        } else {
-                            calculatorNumber.setText(strValue + "7");
-                        }
-                    }
-                    else if(!strValue.equals(zer)&&!(symValue.length()>0)&&(hidValue.length()>0)){ // 계산 에러 식
-                        calculatorHiddenNumber.setText(null);
-                        calculatorSymbol.setText(null);
-
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("7");
-                        } else {
-                            calculatorNumber.setText(strValue + "7");
-                        }
-                    }
-                    else if(!strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){ // strValue > hidValue로 이동 시킴
-                        calculatorHiddenNumber.setText(strValue);
+                    } else if(!strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){
+                        hidValue = strValue;
                         calculatorNumber.setText(zer);
-
+                        strValue = calculatorNumber.getText().toString();
                         if(strValue.equals(zer)){
                             calculatorNumber.setText("7");
                         } else {
-                            calculatorNumber.setText(strValue + "7");
+                            calculatorNumber.setText(strValue + "7"); // 실행 안되는 코드 > 테스트 후 삭제 예정
                         }
-                    }
-                    else if(!strValue.equals(zer)&&(symValue.length()>0)&&(hidValue.length()>0)){ // 연산
+                    } else if(!strValue.equals(zer)&&(symValue.length()>0)&&(hidValue.length()>0)){
                         if(strValue.equals(zer)){
-                            calculatorNumber.setText("7");
+                            calculatorNumber.setText("7"); // 실행 안되는 코드 > 테스트 후 삭제 예정
                         } else {
                             calculatorNumber.setText(strValue + "7");
                         }
-                    }
-                    else{
-                        System.out.println("덧셈 에러 식");
+                    } else {
+                        System.out.println("7번 버튼 에러");
                     }
                     break;
                 case R.id.button_8:
-                    if(strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){ // 초기 입력 상태
+                    if(strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){
+                        calculatorNumber.setText("8");
+                    } else if(strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){
                         if(strValue.equals(zer)){
                             calculatorNumber.setText("8");
                         } else {
                             calculatorNumber.setText(strValue + "8");
                         }
-                    }
-                    else if(strValue.equals(zer)&&!(symValue.length()>0)&&(hidValue.length()>0)){ // 계산 에러 식
+                    } else if(!strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){
                         if(strValue.equals(zer)){
                             calculatorNumber.setText("8");
                         } else {
                             calculatorNumber.setText(strValue + "8");
                         }
-                        calculatorSymbol.setText(null);
-                        calculatorHiddenNumber.setText(null);
-                    }
-                    else if(strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){ // 0 1 0 상태에서 1 1 0 상태로 변경
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("8");
-                        } else {
-                            calculatorNumber.setText(strValue + "8");
-                        }
-                    }
-                    else if(strValue.equals(zer)&&(symValue.length()>0)&&(hidValue.length()>0)){ // 계산 에러 식
-                        calculatorHiddenNumber.setText(null);
-                        calculatorSymbol.setText(null);
-
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("8");
-                        } else {
-                            calculatorNumber.setText(strValue + "8");
-                        }
-                    }
-                    else if(!strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("8");
-                        } else {
-                            calculatorNumber.setText(strValue + "8");
-                        }
-                    }
-                    else if(!strValue.equals(zer)&&!(symValue.length()>0)&&(hidValue.length()>0)){ // 계산 에러 식
-                        calculatorHiddenNumber.setText(null);
-                        calculatorSymbol.setText(null);
-
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("8");
-                        } else {
-                            calculatorNumber.setText(strValue + "8");
-                        }
-                    }
-                    else if(!strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){ // strValue > hidValue로 이동 시킴
-                        calculatorHiddenNumber.setText(strValue);
+                    } else if(!strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){
+                        hidValue = strValue;
                         calculatorNumber.setText(zer);
-
+                        strValue = calculatorNumber.getText().toString();
                         if(strValue.equals(zer)){
                             calculatorNumber.setText("8");
                         } else {
-                            calculatorNumber.setText(strValue + "8");
+                            calculatorNumber.setText(strValue + "8"); // 실행 안되는 코드 > 테스트 후 삭제 예정
                         }
-                    }
-                    else if(!strValue.equals(zer)&&(symValue.length()>0)&&(hidValue.length()>0)){ // 연산
+                    } else if(!strValue.equals(zer)&&(symValue.length()>0)&&(hidValue.length()>0)){
                         if(strValue.equals(zer)){
-                            calculatorNumber.setText("8");
+                            calculatorNumber.setText("8"); // 실행 안되는 코드 > 테스트 후 삭제 예정
                         } else {
                             calculatorNumber.setText(strValue + "8");
                         }
-                    }
-                    else{
-                        System.out.println("덧셈 에러 식");
+                    } else {
+                        System.out.println("8번 버튼 에러");
                     }
                     break;
                 case R.id.button_9:
-                    if(strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){ // 초기 입력 상태
+                    if(strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){
+                        calculatorNumber.setText("9");
+                    } else if(strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){
                         if(strValue.equals(zer)){
                             calculatorNumber.setText("9");
                         } else {
                             calculatorNumber.setText(strValue + "9");
                         }
-                    }
-                    else if(strValue.equals(zer)&&!(symValue.length()>0)&&(hidValue.length()>0)){ // 계산 에러 식
+                    } else if(!strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){
                         if(strValue.equals(zer)){
                             calculatorNumber.setText("9");
                         } else {
                             calculatorNumber.setText(strValue + "9");
                         }
-                        calculatorSymbol.setText(null);
-                        calculatorHiddenNumber.setText(null);
-                    }
-                    else if(strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){ // 0 1 0 상태에서 1 1 0 상태로 변경
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("9");
-                        } else {
-                            calculatorNumber.setText(strValue + "9");
-                        }
-                    }
-                    else if(strValue.equals(zer)&&(symValue.length()>0)&&(hidValue.length()>0)){ // 계산 에러 식
-                        calculatorHiddenNumber.setText(null);
-                        calculatorSymbol.setText(null);
-
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("9");
-                        } else {
-                            calculatorNumber.setText(strValue + "9");
-                        }
-                    }
-                    else if(!strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("9");
-                        } else {
-                            calculatorNumber.setText(strValue + "9");
-                        }
-                    }
-                    else if(!strValue.equals(zer)&&!(symValue.length()>0)&&(hidValue.length()>0)){ // 계산 에러 식
-                        calculatorHiddenNumber.setText(null);
-                        calculatorSymbol.setText(null);
-
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("9");
-                        } else {
-                            calculatorNumber.setText(strValue + "9");
-                        }
-                    }
-                    else if(!strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){ // strValue > hidValue로 이동 시킴
-                        calculatorHiddenNumber.setText(strValue);
+                    } else if(!strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){
+                        hidValue = strValue;
                         calculatorNumber.setText(zer);
-
+                        strValue = calculatorNumber.getText().toString();
                         if(strValue.equals(zer)){
                             calculatorNumber.setText("9");
                         } else {
-                            calculatorNumber.setText(strValue + "9");
+                            calculatorNumber.setText(strValue + "9"); // 실행 안되는 코드 > 테스트 후 삭제 예정
                         }
-                    }
-                    else if(!strValue.equals(zer)&&(symValue.length()>0)&&(hidValue.length()>0)){ // 연산
+                    } else if(!strValue.equals(zer)&&(symValue.length()>0)&&(hidValue.length()>0)){
                         if(strValue.equals(zer)){
-                            calculatorNumber.setText("9");
+                            calculatorNumber.setText("9"); // 실행 안되는 코드 > 테스트 후 삭제 예정
                         } else {
                             calculatorNumber.setText(strValue + "9");
                         }
-                    }
-                    else{
-                        System.out.println("덧셈 에러 식");
+                    } else {
+                        System.out.println("9번 버튼 에러");
                     }
                     break;
                 case R.id.button_0:
-                    if(strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){ // 초기 입력 상태
+                    if(strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){
+                        calculatorNumber.setText("0");
+                    } else if(strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){
                         if(strValue.equals(zer)){
                             calculatorNumber.setText("0");
                         } else {
                             calculatorNumber.setText(strValue + "0");
                         }
-                    }
-                    else if(strValue.equals(zer)&&!(symValue.length()>0)&&(hidValue.length()>0)){ // 계산 에러 식
+                    } else if(!strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){
                         if(strValue.equals(zer)){
                             calculatorNumber.setText("0");
                         } else {
                             calculatorNumber.setText(strValue + "0");
                         }
-                        calculatorSymbol.setText(null);
-                        calculatorHiddenNumber.setText(null);
-                    }
-                    else if(strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){ // 0 1 0 상태에서 1 1 0 상태로 변경
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("0");
-                        } else {
-                            calculatorNumber.setText(strValue + "0");
-                        }
-                    }
-                    else if(strValue.equals(zer)&&(symValue.length()>0)&&(hidValue.length()>0)){ // 계산 에러 식
-                        calculatorHiddenNumber.setText(null);
-                        calculatorSymbol.setText(null);
-
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("0");
-                        } else {
-                            calculatorNumber.setText(strValue + "0");
-                        }
-                    }
-                    else if(!strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("0");
-                        } else {
-                            calculatorNumber.setText(strValue + "0");
-                        }
-                    }
-                    else if(!strValue.equals(zer)&&!(symValue.length()>0)&&(hidValue.length()>0)){ // 계산 에러 식
-                        calculatorHiddenNumber.setText(null);
-                        calculatorSymbol.setText(null);
-
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("0");
-                        } else {
-                            calculatorNumber.setText(strValue + "0");
-                        }
-                    }
-                    else if(!strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){ // strValue > hidValue로 이동 시킴
-                        calculatorHiddenNumber.setText(strValue);
+                    } else if(!strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){
+                        hidValue = strValue;
                         calculatorNumber.setText(zer);
-
+                        strValue = calculatorNumber.getText().toString();
                         if(strValue.equals(zer)){
                             calculatorNumber.setText("0");
                         } else {
-                            calculatorNumber.setText(strValue + "0");
+                            calculatorNumber.setText(strValue + "0"); // 실행 안되는 코드 > 테스트 후 삭제 예정
                         }
-                    }
-                    else if(!strValue.equals(zer)&&(symValue.length()>0)&&(hidValue.length()>0)){ // 연산
+                    } else if(!strValue.equals(zer)&&(symValue.length()>0)&&(hidValue.length()>0)){
                         if(strValue.equals(zer)){
-                            calculatorNumber.setText("0");
+                            calculatorNumber.setText("0"); // 실행 안되는 코드 > 테스트 후 삭제 예정
                         } else {
                             calculatorNumber.setText(strValue + "0");
                         }
-                    }
-                    else{
-                        System.out.println("덧셈 에러 식");
+                    } else {
+                        System.out.println("0번 버튼 에러");
                     }
                     break;
 
 
 //                사칙연산
                 case R.id.button_plu:
-                    if(strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){calculatorSymbol.setText(plu);} // 초기화 기호 입력
-                    else if(strValue.equals(zer)&&!(symValue.length()>0)&&(hidValue.length()>0)){calculatorNumber.setText(null);calculatorSymbol.setText(plu);calculatorHiddenNumber.setText(null);} // 계산 에러 식
-                    else if(strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){calculatorSymbol.setText(plu);} // 초기상태에서 식 기호 누른 상태 > plu로 변경
-                    else if(strValue.equals(zer)&&(symValue.length()>0)&&(hidValue.length()>0)){calculatorNumber.setText(null);calculatorSymbol.setText(plu);calculatorHiddenNumber.setText(null);} // 계산 에러 식
-                    else if(!strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){calculatorSymbol.setText(plu);} // symbol 입력
-                    else if(!strValue.equals(zer)&&!(symValue.length()>0)&&(hidValue.length()>0)){calculatorNumber.setText(null);calculatorSymbol.setText(plu);calculatorHiddenNumber.setText(null);} // 계산 에러 식
-                    else if(!strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){calculatorSymbol.setText(plu);} // symbol 입력
-                    else if(!strValue.equals(zer)&&(symValue.length()>0)&&(hidValue.length()>0)){ // 연산
+                    System.out.println("button_plu");
+                    if(strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){calculatorSymbol.setText(plu);System.out.println("button_plu 1");} // 초기화 기호 입력
+                    else if(strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){calculatorSymbol.setText(plu);System.out.println("button_plu 2");} // symbol 변경
+
+                    else if(!strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){calculatorSymbol.setText(plu);System.out.println("button_plu 3");} // symbol 입력
+                    else if(!strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){
+                        calculatorSymbol.setText(plu);
+                        System.out.println("button_plu 4");
+                    } // symbol 변경
+                    else if(!strValue.equals(zer)&&(symValue.length()>0)&&(hidValue.length()>0)){
+                        System.out.println("button_plu 5");// 연산
+                        System.out.println("plu : " + strValue + "/ " + hidValue + "/ " + symValue);
                         calculResult = methodEqu(strValue, hidValue, symValue);
+                        System.out.println("calculResult : " + calculResult);
                         calculatorNumber.setText(calculResult);
                         calculatorSymbol.setText(plu);
                         calculatorHiddenNumber.setText(zer);
-                        if(hisValue.length()>0){
+                        /*if(hisValue.length()>0){ // history 입력
                             calculatorHistory.setText(hisValue + strValue + symValue + hidValue + plu);
                         } else {
                             calculatorHistory.setText(strValue + symValue + hidValue + plu);
-                        }
+                        }*/
                     }
                     else{
                         System.out.println("덧셈 에러 식");
@@ -948,7 +586,7 @@ public class MainActivity extends AppCompatActivity {
             equResult = String.valueOf((intNum1/intNum2) + (doubleNum1/doubleNum2));
         }
 
-
+        System.out.println("methodEqu(equResult): " + equResult);
 
         return equResult;
     };
