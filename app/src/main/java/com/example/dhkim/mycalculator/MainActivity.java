@@ -3,17 +3,15 @@ package com.example.dhkim.mycalculator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
     TextView calculatorHistory = null;
     TextView calculatorSymbol = null;
+    TextView calculatorHiddenNumber = null;
     TextView calculatorNumber = null;
-
 
 
     Button button_1 = null;
@@ -27,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     Button button_9 = null;
     Button button_0 = null;
 
-    Button button_dev = null;
+    Button button_div = null;
     Button button_mul = null;
     Button button_plu = null;
     Button button_min = null;
@@ -36,7 +34,13 @@ public class MainActivity extends AppCompatActivity {
     Button button_equ = null;
     Button button_ac = null;
 
+    final String zer = "0";
+    final String plu = "+";
+    final String min = "-";
+    final String mul = "x";
+    final String div = "÷";
 
+    final String dot = ".";
 
 
     @Override
@@ -46,14 +50,16 @@ public class MainActivity extends AppCompatActivity {
 
         calculatorHistory = (TextView) findViewById(R.id.calculatorHistory);
         calculatorSymbol = (TextView) findViewById(R.id.calculatorSymbol);
+        calculatorHiddenNumber = (TextView) findViewById(R.id.calculatorHiddenNumber);
         calculatorNumber = (TextView) findViewById(R.id.calculatorNumber);
 
         calculatorHistory.setText(null);
         calculatorSymbol.setText(null);
+        calculatorHiddenNumber.setText(null);
         calculatorNumber.setText("0");
 //        Button initialize
         button_ac = (Button) findViewById(R.id.button_ac);
-        button_dev = (Button) findViewById(R.id.button_dev);
+        button_div = (Button) findViewById(R.id.button_div);
 
         button_7 = (Button) findViewById(R.id.button_7);
         button_8 = (Button) findViewById(R.id.button_8);
@@ -77,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
 
 //        Listener bridge
         button_ac.setOnClickListener(mClickListener);
-        button_dev.setOnClickListener(mClickListener);
+        button_div.setOnClickListener(mClickListener);
 
         button_7.setOnClickListener(mClickListener);
         button_8.setOnClickListener(mClickListener);
@@ -103,13 +109,33 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             //        ac 버튼 초기화
-            if(calculatorNumber.getText().toString()!=null){
+            if(calculatorNumber.getText().toString()!="0"){
                 button_ac.setText("C");
             } else {
                 button_ac.setText("AC");
             }
-            String strValue = null;
-            int intValue = 0;
+            String hisValue = calculatorHistory.getText().toString().trim();
+            String strValue = calculatorNumber.getText().toString().trim();
+            String symValue = calculatorSymbol.getText().toString().trim();
+            String hidValue = calculatorHiddenNumber.getText().toString().trim();
+
+            if(symValue.length()>0){
+                System.out.println("symValue.equals(null) : false / " + symValue.length());
+            } else {
+                System.out.println("symValue.equals(null) : true");
+            }
+
+            if(hidValue.length()>0){
+                System.out.println("hidValue.equals(null) : false / " + hidValue.length());
+            } else {
+                System.out.println("hidValue.equals(null) : true");
+            }
+
+            System.out.println("hisValue : " + hisValue);
+            System.out.println("strValue : " + strValue);
+            System.out.println("symValue : " + symValue);
+            System.out.println("hidValue : " + hidValue);
+
 
             switch (v.getId()){
                 case R.id.button_ac:
@@ -120,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
 
                 case R.id.button_1:
-                    if(calculatorNumber.getText()!="0"){
+                    if(strValue!="0"){
                         strValue = calculatorNumber.getText().toString() + "1";
                         calculatorNumber.setText(strValue);
                     } else {
@@ -129,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     break;
                 case R.id.button_2:
-                    if(calculatorNumber.getText()!="0"){
+                    if(strValue!="0"){
                         strValue = calculatorNumber.getText().toString() + "2";
                         calculatorNumber.setText(strValue);
                     } else {
@@ -138,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     break;
                 case R.id.button_3:
-                    if(calculatorNumber.getText()!="0"){
+                    if(strValue!="0"){
                         strValue = calculatorNumber.getText().toString() + "3";
                         calculatorNumber.setText(strValue);
                     } else {
@@ -147,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     break;
                 case R.id.button_4:
-                    if(calculatorNumber.getText()!="0"){
+                    if(strValue!="0"){
                         strValue = calculatorNumber.getText().toString() + "4";
                         calculatorNumber.setText(strValue);
                     } else {
@@ -156,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     break;
                 case R.id.button_5:
-                    if(calculatorNumber.getText()!="0"){
+                    if(strValue!="0"){
                         strValue = calculatorNumber.getText().toString() + "5";
                         calculatorNumber.setText(strValue);
                     } else {
@@ -165,7 +191,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     break;
                 case R.id.button_6:
-                    if(calculatorNumber.getText()!="0"){
+                    if(strValue!="0"){
                         strValue = calculatorNumber.getText().toString() + "6";
                         calculatorNumber.setText(strValue);
                     } else {
@@ -174,7 +200,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     break;
                 case R.id.button_7:
-                    if(calculatorNumber.getText()!="0"){
+                    if(strValue!="0"){
                         strValue = calculatorNumber.getText().toString() + "7";
                         calculatorNumber.setText(strValue);
                     } else {
@@ -183,7 +209,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     break;
                 case R.id.button_8:
-                    if(calculatorNumber.getText()!="0"){
+                    if(strValue!="0"){
                         strValue = calculatorNumber.getText().toString() + "8";
                         calculatorNumber.setText(strValue);
                     } else {
@@ -192,7 +218,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     break;
                 case R.id.button_9:
-                    if(calculatorNumber.getText()!="0"){
+                    if(strValue!="0"){
                         strValue = calculatorNumber.getText().toString() + "9";
                         calculatorNumber.setText(strValue);
                     } else {
@@ -201,7 +227,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     break;
                 case R.id.button_0:
-                    if(calculatorNumber.getText()!="0"){
+                    if(strValue!="0"){
                         strValue = calculatorNumber.getText().toString() + "0";
                         calculatorNumber.setText(strValue);
                     } else {
@@ -211,76 +237,337 @@ public class MainActivity extends AppCompatActivity {
                     break;
 
 
+//                사칙연산
+                case R.id.button_plu:
+//                    strValue , symValue , hidValue;
+                    if((strValue.equals("0")&&!(symValue.length()>0)&&!(hidValue.length()>0))){
+                        System.out.println("덧셈 pass 식");
+                    } else if((!strValue.equals("0")&&!(symValue.length()>0)&&!(hidValue.length()>0))){
+                        System.out.println("k1");
+                        calculatorSymbol.setText(plu);
+                        calculatorHistory.setText(strValue + plu);
+                    } else if((strValue.equals("0")&&(symValue.length()>0)&&!(hidValue.length()>0))){
+                        System.out.println("k2");
+                        calculatorSymbol.setText(plu);
+                    } else if((strValue.equals("0")&&!(symValue.length()>0)&&(hidValue.length()>0))){ // 계산 오류 식 pass
+                        System.out.println("k3");
+                        calculatorHiddenNumber.setText(null);
+                        calculatorSymbol.setText(null);
+                        calculatorNumber.setText(zer);
+                    } else if((!strValue.equals("0")&&(symValue.length()>0)&&!(hidValue.length()>0))){
+                        System.out.println("k4");
+                        calculatorHiddenNumber.setText(strValue);
+                        calculatorSymbol.setText(plu);
+                    } else if((!strValue.equals("0")&&!(symValue.length()>0)&&(hidValue.length()>0))){
+                        System.out.println("k5");
+                        calculatorHiddenNumber.setText(null);
+                        calculatorSymbol.setText(null);
+                        calculatorNumber.setText(zer);
+                    } else if((strValue.equals("0")&&(symValue.length()>0)&&(hidValue.length()>0))){
+                        System.out.println("k6");
+                        calculatorSymbol.setText(plu);
+                        calculatorNumber.setText(zer);
+                    } else if((!strValue.equals("0")&&(symValue.length()>0)&&(hidValue.length()>0))){
+                        System.out.println("k7");
+//                        int foo = Double.parseDouble("1234");
+                        if(!(hisValue.contains(dot))&&!(strValue.contains(dot))){
+//                            정수 연산
+                            int tempInt1 = Integer.parseInt(hidValue);
+                            int tempInt2 = Integer.parseInt(strValue);
 
-                case R.id.button_dev:
-                    if(calculatorSymbol.getText().toString().contains("÷")){
-                        break;
-                    }
-                    if(calculatorNumber.getText().toString()!=null){
-                        strValue = calculatorNumber.getText().toString() + "÷";
-                        calculatorSymbol.setText(strValue);
-                        calculatorNumber.setText("0");
+                            if(symValue.equals(plu)){
+                                calculatorNumber.setText(String.valueOf(tempInt1 + tempInt2));
+                            } else if(symValue.equals(min)){
+                                if(tempInt1<tempInt2){
+                                    calculatorNumber.setText("-"+String.valueOf(tempInt2 - tempInt1));
+                                } else {
+                                    calculatorNumber.setText(String.valueOf(tempInt1 - tempInt2));
+                                }
+                            } else if(symValue.equals(mul)){
+                                calculatorNumber.setText(String.valueOf(tempInt1*tempInt2));
+                            } else if(symValue.equals(div)){
+                                calculatorNumber.setText(String.valueOf(tempInt1/tempInt2));
+                            } else {
+                                System.out.println("덧셈 식 에러");
+                            }
+                            calculatorHiddenNumber.setText(null);
+                            calculatorSymbol.setText(plu);
+                            calculatorHistory.setText(String.valueOf(tempInt1) + symValue + String.valueOf(tempInt2) + plu);
+                        } else {
+//                            소수점 연산
+                            double tempDouble1 = Double.parseDouble(hidValue);
+                            double tempDouble2 = Double.parseDouble(strValue);
+                            if(symValue.equals(plu)){
+                                calculatorHiddenNumber.setText(String.valueOf(tempDouble1 + tempDouble2));
+                            } else if(symValue.equals(min)){
+                                if(tempDouble1<tempDouble2){
+                                    calculatorHiddenNumber.setText("-"+String.valueOf(tempDouble2 - tempDouble1));
+                                } else {
+                                    calculatorHiddenNumber.setText(String.valueOf(tempDouble1 - tempDouble2));
+                                }
+                            } else if(symValue.equals(mul)){
+                                calculatorHiddenNumber.setText(String.valueOf(tempDouble1*tempDouble2));
+                            } else if(symValue.equals(div)){
+                                calculatorHiddenNumber.setText(String.valueOf(tempDouble1/tempDouble2));
+                            } else {
+                                System.out.println("덧셈 식 에러");
+                            }
+                            calculatorHiddenNumber.setText(null);
+                            calculatorSymbol.setText(plu);
+                            calculatorHistory.setText(String.valueOf(tempDouble1) + symValue + String.valueOf(tempDouble2) + plu);
+
+                        }
                     } else {
-                        Toast.makeText(getApplicationContext(), "값을 입력하세요.", Toast.LENGTH_SHORT).show();
-                        calculatorSymbol.setText(null);
-                        calculatorNumber.setText("0");
-                        button_ac.setText("AC");
-                    }
-                    break;
-                case R.id.button_mul:
-                    if(calculatorSymbol.getText().toString().contains("x")){
-                        break;
-                    }
-                    if(calculatorNumber.getText().toString()!=null){
-                        strValue = calculatorNumber.getText().toString() + "x";
-                        calculatorSymbol.setText(strValue);
-                        calculatorNumber.setText("0");
-                    } else {
-                        Toast.makeText(getApplicationContext(), "값을 입력하세요.", Toast.LENGTH_SHORT).show();
-                        calculatorSymbol.setText(null);
-                        calculatorNumber.setText("0");
-                        button_ac.setText("AC");
+                        System.out.println("덧셈 pass 식");
                     }
                     break;
                 case R.id.button_min:
-                    calculatorNumber.setText("Minus Button");
-                    break;
-                case R.id.button_plu:
-                    if(calculatorSymbol.getText().toString().equals(null)
-                            &&calculatorNumber.getText().toString().equals(null)){
-                        break;
-                    } else if(calculatorSymbol.getText().toString()!=null
-                            &&calculatorNumber.getText().toString()==null){
-                        strValue = calculatorSymbol.getText().toString();
-
-                        if((strValue.charAt(strValue.length()-1))=='+'){
-                            break;
-                        } else if((strValue.charAt(strValue.length()-1))=='-'
-                                &&(strValue.charAt(strValue.length()-1))=='%'
-                                &&(strValue.charAt(strValue.length()-1))=='x'
-                                &&(strValue.charAt(strValue.length()-1))=='÷'){
-                            strValue = strValue.substring(0, strValue.length()-2) + "+";
-
-                            calculatorSymbol.setText(strValue);
-                            calculatorNumber.setText("0");
+                    if((strValue.equals("0")&&!(symValue.length()>0)&&!(hidValue.length()>0))){
+                        calculatorSymbol.setText(min);
+                    } else if((!strValue.equals("0")&&!(symValue.length()>0)&&!(hidValue.length()>0))){
+                        calculatorHiddenNumber.setText(strValue);
+                        calculatorSymbol.setText(min);
+                        calculatorNumber.setText(zer);
+                        calculatorHistory.setText(strValue + min);
+                    } else if((strValue.equals("0")&&(symValue.length()>0)&&!(hidValue.length()>0))){
+                        calculatorSymbol.setText(min);
+                    } else if((strValue.equals("0")&&!(symValue.length()>0)&&(hidValue.length()>0))){ // 계산 오류 식 pass
+                        calculatorHiddenNumber.setText(null);
+                        calculatorSymbol.setText(null);
+                        calculatorNumber.setText(zer);
+                    } else if((!strValue.equals("0")&&(symValue.length()>0)&&!(hidValue.length()>0))){ // 계산 오류 식 pass
+                        calculatorHiddenNumber.setText(null);
+                        calculatorSymbol.setText(null);
+                        calculatorNumber.setText(zer);
+                    } else if((!strValue.equals("0")&&!(symValue.length()>0)&&(hidValue.length()>0))){ // 계산 오류 식 pass
+                        calculatorHiddenNumber.setText(null);
+                        calculatorSymbol.setText(null);
+                        calculatorNumber.setText(zer);
+                    } else if((strValue.equals("0")&&(symValue.length()>0)&&(hidValue.length()>0))){
+                        calculatorHiddenNumber.setText(null);
+                        calculatorSymbol.setText(min);
+                        calculatorNumber.setText(zer);
+                    } else if((!strValue.equals("0")&&(symValue.length()>0)&&(hidValue.length()>0))){
+//                        int foo = Double.parseDouble("1234");
+                        double temp1 = Double.parseDouble(hidValue);
+                        double temp2 = Double.parseDouble(strValue);
+                        if(symValue.equals(plu)){
+                            calculatorHiddenNumber.setText(String.valueOf(temp1 + temp2));
+                        } else if(symValue.equals(min)){
+                            if(temp1<temp2){
+                                calculatorHiddenNumber.setText("-"+String.valueOf(temp2 - temp1));
+                            } else {
+                                calculatorHiddenNumber.setText(String.valueOf(temp1 - temp2));
+                            }
+                        } else if(symValue.equals(mul)){
+                            calculatorHiddenNumber.setText(String.valueOf(temp1*temp2));
+                        } else if(symValue.equals(div)){
+                            calculatorHiddenNumber.setText(String.valueOf(temp1/temp2));
+                        } else {
+                            System.out.println("뺄셈 식 에러");
                         }
-                    } else if(calculatorNumber.getText().toString()!=null){
-                        strValue = calculatorSymbol.getText().toString() + calculatorNumber.getText().toString();
-                        calculatorSymbol.setText(strValue);
+                        calculatorSymbol.setText(min);
                         calculatorNumber.setText("0");
+
+                    } else {
+                        System.out.println("뺄셈 pass 식");
+                    }
+                    break;
+                case R.id.button_mul:
+                    if((strValue.equals("0")&&!(symValue.length()>0)&&!(hidValue.length()>0))){
+                        calculatorSymbol.setText(mul);
+                    } else if((!strValue.equals("0")&&!(symValue.length()>0)&&!(hidValue.length()>0))){
+                        calculatorHiddenNumber.setText(strValue);
+                        calculatorSymbol.setText(mul);
+                        calculatorNumber.setText(zer);
+                        calculatorHistory.setText(strValue + mul);
+                    } else if((strValue.equals("0")&&(symValue.length()>0)&&!(hidValue.length()>0))){
+                        calculatorSymbol.setText(mul);
+                    } else if((strValue.equals("0")&&!(symValue.length()>0)&&(hidValue.length()>0))){ // 계산 오류 식 pass
+                        calculatorHiddenNumber.setText(null);
+                        calculatorSymbol.setText(null);
+                        calculatorNumber.setText(zer);
+                    } else if((!strValue.equals("0")&&(symValue.length()>0)&&!(hidValue.length()>0))){ // 계산 오류 식 pass
+                        calculatorHiddenNumber.setText(null);
+                        calculatorSymbol.setText(null);
+                        calculatorNumber.setText(zer);
+                    } else if((!strValue.equals("0")&&!(symValue.length()>0)&&(hidValue.length()>0))){ // 계산 오류 식 pass
+                        calculatorHiddenNumber.setText(null);
+                        calculatorSymbol.setText(null);
+                        calculatorNumber.setText(zer);
+                    } else if((strValue.equals("0")&&(symValue.length()>0)&&(hidValue.length()>0))){
+                        calculatorHiddenNumber.setText(null);
+                        calculatorSymbol.setText(mul);
+                        calculatorNumber.setText(zer);
+                    } else if((!strValue.equals("0")&&(symValue.length()>0)&&(hidValue.length()>0))){
+//                        int foo = Double.parseDouble("1234");
+                        double temp1 = Double.parseDouble(hidValue);
+                        double temp2 = Double.parseDouble(strValue);
+                        if(symValue.equals(plu)){
+                            calculatorHiddenNumber.setText(String.valueOf(temp1 + temp2));
+                        } else if(symValue.equals(min)){
+                            if(temp1<temp2){
+                                calculatorHiddenNumber.setText("-"+String.valueOf(temp2 - temp1));
+                            } else {
+                                calculatorHiddenNumber.setText(String.valueOf(temp1 - temp2));
+                            }
+                        } else if(symValue.equals(mul)){
+                            calculatorHiddenNumber.setText(String.valueOf(temp1*temp2));
+                        } else if(symValue.equals(div)){
+                            calculatorHiddenNumber.setText(String.valueOf(temp1/temp2));
+                        } else {
+                            System.out.println("곱셈 식 에러");
+                        }
+                        calculatorSymbol.setText(mul);
+                        calculatorNumber.setText("0");
+
+                    } else {
+                        System.out.println("곱셈 pass 식");
+                    }
+                    break;
+                case R.id.button_div:
+                    if((strValue.equals("0")&&!(symValue.length()>0)&&!(hidValue.length()>0))){
+                        calculatorSymbol.setText(div);
+                    } else if((!strValue.equals("0")&&!(symValue.length()>0)&&!(hidValue.length()>0))){
+                        calculatorHiddenNumber.setText(strValue);
+                        calculatorSymbol.setText(mul);
+                        calculatorNumber.setText(zer);
+                        calculatorHistory.setText(strValue + mul);
+                    } else if((strValue.equals("0")&&(symValue.length()>0)&&!(hidValue.length()>0))){
+                        calculatorSymbol.setText(div);
+                    } else if((strValue.equals("0")&&!(symValue.length()>0)&&(hidValue.length()>0))){ // 계산 오류 식 pass
+                        calculatorHiddenNumber.setText(null);
+                        calculatorSymbol.setText(null);
+                        calculatorNumber.setText(zer);
+                    } else if((!strValue.equals("0")&&(symValue.length()>0)&&!(hidValue.length()>0))){ // 계산 오류 식 pass
+                        calculatorHiddenNumber.setText(null);
+                        calculatorSymbol.setText(null);
+                        calculatorNumber.setText(zer);
+                    } else if((!strValue.equals("0")&&!(symValue.length()>0)&&(hidValue.length()>0))){ // 계산 오류 식 pass
+                        calculatorHiddenNumber.setText(null);
+                        calculatorSymbol.setText(null);
+                        calculatorNumber.setText(zer);
+                    } else if((strValue.equals("0")&&(symValue.length()>0)&&(hidValue.length()>0))){
+                        calculatorHiddenNumber.setText(null);
+                        calculatorSymbol.setText(mul);
+                        calculatorNumber.setText(zer);
+                    } else if((!strValue.equals("0")&&(symValue.length()>0)&&(hidValue.length()>0))){
+//                        int foo = Double.parseDouble("1234");
+                        double temp1 = Double.parseDouble(hidValue);
+                        double temp2 = Double.parseDouble(strValue);
+                        if(symValue.equals(plu)){
+                            calculatorHiddenNumber.setText(String.valueOf(temp1 + temp2));
+                        } else if(symValue.equals(min)){
+                            if(temp1<temp2){
+                                calculatorHiddenNumber.setText("-"+String.valueOf(temp2 - temp1));
+                            } else {
+                                calculatorHiddenNumber.setText(String.valueOf(temp1 - temp2));
+                            }
+                        } else if(symValue.equals(mul)){
+                            calculatorHiddenNumber.setText(String.valueOf(temp1*temp2));
+                        } else if(symValue.equals(div)){
+                            calculatorHiddenNumber.setText(String.valueOf(temp1/temp2));
+                        } else {
+                            System.out.println("나눗셈 식 에러");
+                        }
+                        calculatorSymbol.setText(mul);
+                        calculatorNumber.setText("0");
+
+                    } else {
+                        System.out.println("나눗셈 pass 식");
                     }
                     break;
                 case R.id.button_dot:
-                    calculatorNumber.setText(0);
+                    if((strValue.equals("0")&&!(symValue.length()>0)&&!(hidValue.length()>0))){
+                        calculatorNumber.setText(zer + dot);
+                    } else if((!strValue.equals("0")&&!(symValue.length()>0)&&!(hidValue.length()>0))){
+                        if(!strValue.contains(dot)){
+                            calculatorNumber.setText(strValue + dot);
+                        } else {
+                            System.out.println("소수점 pass 식");
+                        }
+                    } else if((strValue.equals("0")&&(symValue.length()>0)&&!(hidValue.length()>0))){ // 계산 오류 식 pass
+                        calculatorHiddenNumber.setText(null);
+                        calculatorSymbol.setText(null);
+                        calculatorNumber.setText(zer + dot);
+                    } else if((strValue.equals("0")&&!(symValue.length()>0)&&(hidValue.length()>0))){ // 계산 오류 식 pass
+                        calculatorHiddenNumber.setText(null);
+                        calculatorSymbol.setText(null);
+                        calculatorNumber.setText(zer + dot);
+                    } else if((!strValue.equals("0")&&(symValue.length()>0)&&!(hidValue.length()>0))){ // 계산 오류 식 pass
+                        calculatorHiddenNumber.setText(null);
+                        calculatorSymbol.setText(null);
+                        calculatorNumber.setText(zer + dot);
+                    } else if((!strValue.equals("0")&&!(symValue.length()>0)&&(hidValue.length()>0))){ // 계산 오류 식 pass
+                        calculatorHiddenNumber.setText(null);
+                        calculatorSymbol.setText(null);
+                        calculatorNumber.setText(zer + dot);
+                    } else if((strValue.equals("0")&&(symValue.length()>0)&&(hidValue.length()>0))){
+                        calculatorHiddenNumber.setText(null);
+                        calculatorSymbol.setText(mul);
+                        calculatorNumber.setText(zer + dot);
+                    } else if((!strValue.equals("0")&&(symValue.length()>0)&&(hidValue.length()>0))){
+//                        int foo = Double.parseDouble("1234");
+                        if(!strValue.contains(dot)){
+                            calculatorNumber.setText(strValue + dot);
+                        } else {
+                            System.out.println("소수점 pass 식");
+                        }
+                    } else {
+                        System.out.println("소수점 pass 식");
+                    }
                     break;
                 case R.id.button_equ:
-                    calculatorNumber.setText(0);
+                    if((strValue.equals("0")&&!(symValue.length()>0)&&!(hidValue.length()>0))){
+                        System.out.println("등호 pass 식");
+                    } else if((!strValue.equals("0")&&!(symValue.length()>0)&&!(hidValue.length()>0))){
+                        System.out.println("등호 pass 식");
+                    } else if((strValue.equals("0")&&(symValue.length()>0)&&!(hidValue.length()>0))){
+                        System.out.println("등호 pass 식");
+                    } else if((strValue.equals("0")&&!(symValue.length()>0)&&(hidValue.length()>0))){
+                        System.out.println("등호 pass 식");
+                    } else if((!strValue.equals("0")&&(symValue.length()>0)&&!(hidValue.length()>0))){ // 정상 식
+                        calculatorHiddenNumber.setText(strValue);
+                        calculatorSymbol.setText(symValue);
+                        calculatorNumber.setText(strValue);
+                    } else if((!strValue.equals("0")&&!(symValue.length()>0)&&(hidValue.length()>0))){
+                        calculatorHiddenNumber.setText(null);
+                        calculatorSymbol.setText(null);
+                        calculatorNumber.setText(strValue);
+                    } else if((strValue.equals("0")&&(symValue.length()>0)&&(hidValue.length()>0))){
+                        calculatorHiddenNumber.setText(null);
+                        calculatorSymbol.setText(null);
+                        calculatorNumber.setText(hidValue);
+                    } else if((!strValue.equals("0")&&(symValue.length()>0)&&(hidValue.length()>0))){
+//                        int foo = Double.parseDouble("1234");
+                        double temp1 = Double.parseDouble(hidValue);
+                        double temp2 = Double.parseDouble(strValue);
+
+                        if(symValue.equals(plu)){
+                            calculatorHiddenNumber.setText(String.valueOf(temp2));
+                            calculatorNumber.setText(String.valueOf(temp1 + temp2));
+                        } else if(symValue.equals(min)){
+                            if(temp1<temp2){
+                                calculatorHiddenNumber.setText(String.valueOf(temp2));
+                                calculatorNumber.setText("-" + String.valueOf(temp2-temp1));
+                            } else {
+                                calculatorHiddenNumber.setText(String.valueOf(temp2));
+                                calculatorNumber.setText(String.valueOf(temp1-temp2));
+                            }
+                        } else if(symValue.equals(mul)){
+                            calculatorHiddenNumber.setText(String.valueOf(temp2));
+                            calculatorNumber.setText(String.valueOf(temp1*temp2));
+                        } else if(symValue.equals(div)){
+                            calculatorHiddenNumber.setText(String.valueOf(temp2));
+                            calculatorNumber.setText(String.valueOf(temp1/temp2));
+                        } else {
+                            System.out.println("등호 식 에러");
+                        }
+
+                    } else {
+                        System.out.println("등호 pass 식");
+                    }
                     break;
-
-
-
-
-
 
             }
         }

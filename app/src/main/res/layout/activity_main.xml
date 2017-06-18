@@ -32,6 +32,12 @@
             android:visibility="gone"
             />
         <TextView
+            android:id="@+id/calculatorHiddenNumber"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            />
+        <TextView
             android:id="@+id/calculatorNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -70,7 +76,7 @@
             android:text="9"
             />
         <Button
-            android:id="@+id/button_dev"
+            android:id="@+id/button_div"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight=".25"
