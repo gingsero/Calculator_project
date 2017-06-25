@@ -26,17 +26,27 @@
             android:ellipsize="start"
             />
         <TextView
+            android:id="@+id/calculatorHiddenNumber1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:visibility="gone"
+            />
+        <TextView
+            android:id="@+id/calculatorHiddenNumber2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:visibility="gone"
+            />
+        <TextView
             android:id="@+id/calculatorSymbol"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20dp"
+            android:visibility="gone"
             />
-        <TextView
-            android:id="@+id/calculatorHiddenNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20dp"
-            />
+
         <TextView
             android:id="@+id/calculatorNumber"
             android:layout_width="match_parent"

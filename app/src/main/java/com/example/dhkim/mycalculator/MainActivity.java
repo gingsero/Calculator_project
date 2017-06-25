@@ -10,9 +10,9 @@ public class MainActivity extends AppCompatActivity {
 
     TextView calculatorHistory = null;
     TextView calculatorSymbol = null;
-    TextView calculatorHiddenNumber = null;
+    TextView calculatorHiddenNumber1 = null;
+    TextView calculatorHiddenNumber2 = null;
     TextView calculatorNumber = null;
-
 
     Button button_1 = null;
     Button button_2 = null;
@@ -34,10 +34,16 @@ public class MainActivity extends AppCompatActivity {
     Button button_equ = null;
     Button button_ac = null;
 
-    String hisValue = null;
-    String hidValue = null;
-    String strValue = null;
-    String symValue = null;
+    final static String numOne = "1";
+    final static String numTwo = "2";
+    final static String numThr = "3";
+    final static String numFou = "4";
+    final static String numFiv = "5";
+    final static String numSix = "6";
+    final static String numSev = "7";
+    final static String numEig = "8";
+    final static String numNin = "9";
+
 
     final static String zer = "0";
     final static String plu = "+";
@@ -55,13 +61,15 @@ public class MainActivity extends AppCompatActivity {
 
         calculatorHistory = (TextView) findViewById(R.id.calculatorHistory);
         calculatorSymbol = (TextView) findViewById(R.id.calculatorSymbol);
-        calculatorHiddenNumber = (TextView) findViewById(R.id.calculatorHiddenNumber);
+        calculatorHiddenNumber1 = (TextView) findViewById(R.id.calculatorHiddenNumber1);
+        calculatorHiddenNumber2 = (TextView) findViewById(R.id.calculatorHiddenNumber2);
         calculatorNumber = (TextView) findViewById(R.id.calculatorNumber);
 
         calculatorHistory.setText(null);
         calculatorSymbol.setText(null);
-        calculatorHiddenNumber.setText(null);
-        calculatorNumber.setText("0");
+        calculatorHiddenNumber1.setText(null);
+        calculatorHiddenNumber2.setText(null);
+        calculatorNumber.setText(zer);
 //        Button initialize
         button_ac = (Button) findViewById(R.id.button_ac);
         button_div = (Button) findViewById(R.id.button_div);
@@ -87,469 +95,385 @@ public class MainActivity extends AppCompatActivity {
 
 
 //        Listener bridge
-        button_ac.setOnClickListener(mClickListener);
-        button_div.setOnClickListener(mClickListener);
+        button_1.setOnClickListener(mClickListenerNumber);
+        button_2.setOnClickListener(mClickListenerNumber);
+        button_3.setOnClickListener(mClickListenerNumber);
+        button_4.setOnClickListener(mClickListenerNumber);
+        button_5.setOnClickListener(mClickListenerNumber);
+        button_6.setOnClickListener(mClickListenerNumber);
+        button_7.setOnClickListener(mClickListenerNumber);
+        button_8.setOnClickListener(mClickListenerNumber);
+        button_9.setOnClickListener(mClickListenerNumber);
+        button_0.setOnClickListener(mClickListenerNumber);
 
-        button_7.setOnClickListener(mClickListener);
-        button_8.setOnClickListener(mClickListener);
-        button_9.setOnClickListener(mClickListener);
-        button_mul.setOnClickListener(mClickListener);
+        button_ac.setOnClickListener(mClickListenerSymbol);
 
-        button_4.setOnClickListener(mClickListener);
-        button_5.setOnClickListener(mClickListener);
-        button_6.setOnClickListener(mClickListener);
-        button_min.setOnClickListener(mClickListener);
+        button_plu.setOnClickListener(mClickListenerSymbol);
+        button_min.setOnClickListener(mClickListenerSymbol);
+        button_mul.setOnClickListener(mClickListenerSymbol);
+        button_div.setOnClickListener(mClickListenerSymbol);
 
-        button_1.setOnClickListener(mClickListener);
-        button_2.setOnClickListener(mClickListener);
-        button_3.setOnClickListener(mClickListener);
-        button_plu.setOnClickListener(mClickListener);
-
-        button_0.setOnClickListener(mClickListener);
-        button_dot.setOnClickListener(mClickListener);
-        button_equ.setOnClickListener(mClickListener);
+        button_dot.setOnClickListener(mClickListenerSymbol);
+        button_equ.setOnClickListener(mClickListenerSymbol);
     }
 
-    View.OnClickListener mClickListener = new View.OnClickListener() {
+
+    /* 숫자 버튼 눌렸을때 동작 메소드 */
+    View.OnClickListener mClickListenerNumber = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            //        ac 버튼 초기화
-            if(calculatorNumber.getText().toString()!="0"){
-                button_ac.setText("C");
+            System.out.println("mClickListenerNumber()");
+
+            if(!calculatorNumber.getText().toString().equals(zer)){
+                button_ac.setText("c");
             } else {
-                button_ac.setText("AC");
+                button_ac.setText("ac");
             }
-            hisValue = calculatorHistory.getText().toString().trim();
-            strValue = calculatorNumber.getText().toString().trim();
-            symValue = calculatorSymbol.getText().toString().trim();
-            hidValue = calculatorHiddenNumber.getText().toString().trim();
 
-            String calculResult = null;
 
-            /*if(symValue.length()>0){
-                System.out.println("symValue.equals(null) : false / " + symValue.length());
+            String hiddenNumb1 = calculatorHiddenNumber1.getText().toString().trim();
+            String hiddenNumb2 = calculatorHiddenNumber2.getText().toString().trim();
+            String hiddenSymbol = calculatorSymbol.getText().toString().trim();
+            String temp = null;
+
+            if (hiddenNumb1.equals(null)||hiddenNumb1.equals("")) {
+                System.out.println("1");
+                switch (v.getId()) {
+                    case R.id.button_1:
+                        temp = numOne;
+                        break;
+                    case R.id.button_2:
+                        temp = numTwo;
+                        break;
+                    case R.id.button_3:
+                        temp = numThr;
+                        break;
+                    case R.id.button_4:
+                        temp = numFou;
+                        break;
+                    case R.id.button_5:
+                        temp = numFiv;
+                        break;
+                    case R.id.button_6:
+                        temp = numSix;
+                        break;
+                    case R.id.button_7:
+                        temp = numSev;
+                        break;
+                    case R.id.button_8:
+                        temp = numEig;
+                        break;
+                    case R.id.button_9:
+                        temp = numNin;
+                        break;
+                    case R.id.button_0:
+                        temp = zer;
+                        break;
+                }
+                calculatorHiddenNumber1.setText(temp);
+                calculatorNumber.setText(temp);
             } else {
-                System.out.println("symValue.equals(null) : true");
-            }
-
-            if(hidValue.length()>0){
-                System.out.println("hidValue.equals(null) : false / " + hidValue.length());
-            } else {
-                System.out.println("hidValue.equals(null) : true");
-            }
-
-            System.out.println("hisValue : " + hisValue);
-            System.out.println("strValue : " + strValue);
-            System.out.println("symValue : " + symValue);
-            System.out.println("hidValue : " + hidValue);*/
-
-
-            switch (v.getId()){
-                case R.id.button_ac:
-                    calculatorHistory.setText(null);
-                    calculatorSymbol.setText(null);
-                    calculatorNumber.setText("0");
-                    button_ac.setText("AC");
-                    break;
-
-                case R.id.button_1:
-                    System.out.println("button_1");
-                    if(strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){ // 0 0 0
-                        System.out.println("button_1 : 1");
-                        calculatorNumber.setText("1");
-                    } else if(strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){ // 0 1 0
-                        System.out.println("button_1 : 2");
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("1");
-                        } else {
-                            calculatorNumber.setText(strValue + "1"); // 실행 안되는 코드 > 테스트 후 삭제 예정
+                System.out.println("2");
+                if (hiddenSymbol.equals(null)||hiddenSymbol.equals("")) {
+                    System.out.println("3");
+                    switch (v.getId()) {
+                        case R.id.button_1:
+                            temp = hiddenNumb1 + numOne;
+                            break;
+                        case R.id.button_2:
+                            temp = hiddenNumb1 + numTwo;
+                            break;
+                        case R.id.button_3:
+                            temp = hiddenNumb1 + numThr;
+                            break;
+                        case R.id.button_4:
+                            temp = hiddenNumb1 + numFou;
+                            break;
+                        case R.id.button_5:
+                            temp = hiddenNumb1 + numFiv;
+                            break;
+                        case R.id.button_6:
+                            temp = hiddenNumb1 + numSix;
+                            break;
+                        case R.id.button_7:
+                            temp = hiddenNumb1 + numSev;
+                            break;
+                        case R.id.button_8:
+                            temp = hiddenNumb1 + numEig;
+                            break;
+                        case R.id.button_9:
+                            temp = hiddenNumb1 + numNin;
+                            break;
+                        case R.id.button_0:
+                            temp = hiddenNumb1 + zer;
+                            break;
+                    }
+                    calculatorHiddenNumber1.setText(temp);
+                    calculatorNumber.setText(temp);
+                } else {
+                    System.out.println("4");
+                    if (hiddenNumb2.equals(null)||hiddenNumb2.equals("")) {
+                        System.out.println("5");
+                        switch (v.getId()) {
+                            case R.id.button_1:
+                                temp = numOne;
+                                break;
+                            case R.id.button_2:
+                                temp = numTwo;
+                                break;
+                            case R.id.button_3:
+                                temp = numThr;
+                                break;
+                            case R.id.button_4:
+                                temp = numFou;
+                                break;
+                            case R.id.button_5:
+                                temp = numFiv;
+                                break;
+                            case R.id.button_6:
+                                temp = numSix;
+                                break;
+                            case R.id.button_7:
+                                temp = numSev;
+                                break;
+                            case R.id.button_8:
+                                temp = numEig;
+                                break;
+                            case R.id.button_9:
+                                temp = numNin;
+                                break;
+                            case R.id.button_0:
+                                temp = zer;
+                                break;
                         }
-                    } else if(!strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){ // 1 0 0
-                        System.out.println("button_1 : 3");
-                        strValue = calculatorNumber.getText().toString();
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("1"); // 실행 안되는 코드 > 테스트 후 삭제 예정
-                        } else {
-                            calculatorNumber.setText(strValue + "1");
-                        }
-                    } else if(!strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){ // 1 1 0
-                        System.out.println("button_1 : 4");
-                        strValue = calculatorNumber.getText().toString();
-                        hidValue = strValue;
-                        calculatorNumber.setText(zer);
-                        strValue = calculatorNumber.getText().toString();
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("1");
-                        } else {
-                            calculatorNumber.setText(strValue + "1"); // 실행 안되는 코드 > 테스트 후 삭제 예정
-                        }
-                    } else if(!strValue.equals(zer)&&(symValue.length()>0)&&(hidValue.length()>0)){ // 1 1 1
-                        System.out.println("button_1 : 5");
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("1"); // 실행 안되는 코드 > 테스트 후 삭제 예정
-                        } else {
-                            calculatorNumber.setText(strValue + "1");
-                        }
+                        calculatorHiddenNumber2.setText(temp);
+                        calculatorNumber.setText(temp);
                     } else {
-                        System.out.println("1번 버튼 에러");
+                        System.out.println("6");
+                        switch (v.getId()) {
+                            case R.id.button_1:
+                                temp = hiddenNumb2 + numOne;
+                                break;
+                            case R.id.button_2:
+                                temp = hiddenNumb2 + numTwo;
+                                break;
+                            case R.id.button_3:
+                                temp = hiddenNumb2 + numThr;
+                                break;
+                            case R.id.button_4:
+                                temp = hiddenNumb2 + numFou;
+                                break;
+                            case R.id.button_5:
+                                temp = hiddenNumb2 + numFiv;
+                                break;
+                            case R.id.button_6:
+                                temp = hiddenNumb2 + numSix;
+                                break;
+                            case R.id.button_7:
+                                temp = hiddenNumb2 + numSev;
+                                break;
+                            case R.id.button_8:
+                                temp = hiddenNumb2 + numEig;
+                                break;
+                            case R.id.button_9:
+                                temp = hiddenNumb2 + numNin;
+                                break;
+                            case R.id.button_0:
+                                temp = hiddenNumb2 + zer;
+                                break;
+                        }
+                        calculatorHiddenNumber2.setText(temp);
+                        calculatorNumber.setText(temp);
                     }
-                    break;
-                case R.id.button_2:
-                    if(strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){
-                        calculatorNumber.setText("2");
-                    } else if(strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("2");
-                        } else {
-                            calculatorNumber.setText(strValue + "2");
-                        }
-                    } else if(!strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("2");
-                        } else {
-                            calculatorNumber.setText(strValue + "2");
-                        }
-                    } else if(!strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){
-                        hidValue = strValue;
-                        calculatorNumber.setText(zer);
-                        strValue = calculatorNumber.getText().toString();
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("2");
-                        } else {
-                            calculatorNumber.setText(strValue + "2"); // 실행 안되는 코드 > 테스트 후 삭제 예정
-                        }
-                    } else if(!strValue.equals(zer)&&(symValue.length()>0)&&(hidValue.length()>0)){
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("2"); // 실행 안되는 코드 > 테스트 후 삭제 예정
-                        } else {
-                            calculatorNumber.setText(strValue + "2");
-                        }
-                    } else {
-                        System.out.println("2번 버튼 에러");
-                    }
-                    break;
-                case R.id.button_3:
-                    if(strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){
-                        calculatorNumber.setText("3");
-                    } else if(strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("3");
-                        } else {
-                            calculatorNumber.setText(strValue + "3");
-                        }
-                    } else if(!strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("3");
-                        } else {
-                            calculatorNumber.setText(strValue + "3");
-                        }
-                    } else if(!strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){
-                        hidValue = strValue;
-                        calculatorNumber.setText(zer);
-                        strValue = calculatorNumber.getText().toString();
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("3");
-                        } else {
-                            calculatorNumber.setText(strValue + "3"); // 실행 안되는 코드 > 테스트 후 삭제 예정
-                        }
-                    } else if(!strValue.equals(zer)&&(symValue.length()>0)&&(hidValue.length()>0)){
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("3"); // 실행 안되는 코드 > 테스트 후 삭제 예정
-                        } else {
-                            calculatorNumber.setText(strValue + "3");
-                        }
-                    } else {
-                        System.out.println("3번 버튼 에러");
-                    }
-                    break;
-                case R.id.button_4:
-                    if(strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){
-                        calculatorNumber.setText("4");
-                    } else if(strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("4");
-                        } else {
-                            calculatorNumber.setText(strValue + "4");
-                        }
-                    } else if(!strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("4");
-                        } else {
-                            calculatorNumber.setText(strValue + "4");
-                        }
-                    } else if(!strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){
-                        hidValue = strValue;
-                        calculatorNumber.setText(zer);
-                        strValue = calculatorNumber.getText().toString();
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("4");
-                        } else {
-                            calculatorNumber.setText(strValue + "4"); // 실행 안되는 코드 > 테스트 후 삭제 예정
-                        }
-                    } else if(!strValue.equals(zer)&&(symValue.length()>0)&&(hidValue.length()>0)){
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("4"); // 실행 안되는 코드 > 테스트 후 삭제 예정
-                        } else {
-                            calculatorNumber.setText(strValue + "4");
-                        }
-                    } else {
-                        System.out.println("4번 버튼 에러");
-                    }
-                    break;
-                case R.id.button_5:
-                    if(strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){
-                        calculatorNumber.setText("5");
-                    } else if(strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("5");
-                        } else {
-                            calculatorNumber.setText(strValue + "5");
-                        }
-                    } else if(!strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("5");
-                        } else {
-                            calculatorNumber.setText(strValue + "5");
-                        }
-                    } else if(!strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){
-                        hidValue = strValue;
-                        calculatorNumber.setText(zer);
-                        strValue = calculatorNumber.getText().toString();
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("5");
-                        } else {
-                            calculatorNumber.setText(strValue + "5"); // 실행 안되는 코드 > 테스트 후 삭제 예정
-                        }
-                    } else if(!strValue.equals(zer)&&(symValue.length()>0)&&(hidValue.length()>0)){
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("5"); // 실행 안되는 코드 > 테스트 후 삭제 예정
-                        } else {
-                            calculatorNumber.setText(strValue + "5");
-                        }
-                    } else {
-                        System.out.println("5번 버튼 에러");
-                    }
-                    break;
-                case R.id.button_6:
-                    if(strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){
-                        calculatorNumber.setText("6");
-                    } else if(strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("6");
-                        } else {
-                            calculatorNumber.setText(strValue + "6");
-                        }
-                    } else if(!strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("6");
-                        } else {
-                            calculatorNumber.setText(strValue + "6");
-                        }
-                    } else if(!strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){
-                        hidValue = strValue;
-                        calculatorNumber.setText(zer);
-                        strValue = calculatorNumber.getText().toString();
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("6");
-                        } else {
-                            calculatorNumber.setText(strValue + "6"); // 실행 안되는 코드 > 테스트 후 삭제 예정
-                        }
-                    } else if(!strValue.equals(zer)&&(symValue.length()>0)&&(hidValue.length()>0)){
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("6"); // 실행 안되는 코드 > 테스트 후 삭제 예정
-                        } else {
-                            calculatorNumber.setText(strValue + "6");
-                        }
-                    } else {
-                        System.out.println("6번 버튼 에러");
-                    }
-                    break;
-                case R.id.button_7:
-                    if(strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){
-                        calculatorNumber.setText("7");
-                    } else if(strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("7");
-                        } else {
-                            calculatorNumber.setText(strValue + "7");
-                        }
-                    } else if(!strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("7");
-                        } else {
-                            calculatorNumber.setText(strValue + "7");
-                        }
-                    } else if(!strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){
-                        hidValue = strValue;
-                        calculatorNumber.setText(zer);
-                        strValue = calculatorNumber.getText().toString();
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("7");
-                        } else {
-                            calculatorNumber.setText(strValue + "7"); // 실행 안되는 코드 > 테스트 후 삭제 예정
-                        }
-                    } else if(!strValue.equals(zer)&&(symValue.length()>0)&&(hidValue.length()>0)){
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("7"); // 실행 안되는 코드 > 테스트 후 삭제 예정
-                        } else {
-                            calculatorNumber.setText(strValue + "7");
-                        }
-                    } else {
-                        System.out.println("7번 버튼 에러");
-                    }
-                    break;
-                case R.id.button_8:
-                    if(strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){
-                        calculatorNumber.setText("8");
-                    } else if(strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("8");
-                        } else {
-                            calculatorNumber.setText(strValue + "8");
-                        }
-                    } else if(!strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("8");
-                        } else {
-                            calculatorNumber.setText(strValue + "8");
-                        }
-                    } else if(!strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){
-                        hidValue = strValue;
-                        calculatorNumber.setText(zer);
-                        strValue = calculatorNumber.getText().toString();
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("8");
-                        } else {
-                            calculatorNumber.setText(strValue + "8"); // 실행 안되는 코드 > 테스트 후 삭제 예정
-                        }
-                    } else if(!strValue.equals(zer)&&(symValue.length()>0)&&(hidValue.length()>0)){
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("8"); // 실행 안되는 코드 > 테스트 후 삭제 예정
-                        } else {
-                            calculatorNumber.setText(strValue + "8");
-                        }
-                    } else {
-                        System.out.println("8번 버튼 에러");
-                    }
-                    break;
-                case R.id.button_9:
-                    if(strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){
-                        calculatorNumber.setText("9");
-                    } else if(strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("9");
-                        } else {
-                            calculatorNumber.setText(strValue + "9");
-                        }
-                    } else if(!strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("9");
-                        } else {
-                            calculatorNumber.setText(strValue + "9");
-                        }
-                    } else if(!strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){
-                        hidValue = strValue;
-                        calculatorNumber.setText(zer);
-                        strValue = calculatorNumber.getText().toString();
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("9");
-                        } else {
-                            calculatorNumber.setText(strValue + "9"); // 실행 안되는 코드 > 테스트 후 삭제 예정
-                        }
-                    } else if(!strValue.equals(zer)&&(symValue.length()>0)&&(hidValue.length()>0)){
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("9"); // 실행 안되는 코드 > 테스트 후 삭제 예정
-                        } else {
-                            calculatorNumber.setText(strValue + "9");
-                        }
-                    } else {
-                        System.out.println("9번 버튼 에러");
-                    }
-                    break;
-                case R.id.button_0:
-                    if(strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){
-                        calculatorNumber.setText("0");
-                    } else if(strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("0");
-                        } else {
-                            calculatorNumber.setText(strValue + "0");
-                        }
-                    } else if(!strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("0");
-                        } else {
-                            calculatorNumber.setText(strValue + "0");
-                        }
-                    } else if(!strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){
-                        hidValue = strValue;
-                        calculatorNumber.setText(zer);
-                        strValue = calculatorNumber.getText().toString();
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("0");
-                        } else {
-                            calculatorNumber.setText(strValue + "0"); // 실행 안되는 코드 > 테스트 후 삭제 예정
-                        }
-                    } else if(!strValue.equals(zer)&&(symValue.length()>0)&&(hidValue.length()>0)){
-                        if(strValue.equals(zer)){
-                            calculatorNumber.setText("0"); // 실행 안되는 코드 > 테스트 후 삭제 예정
-                        } else {
-                            calculatorNumber.setText(strValue + "0");
-                        }
-                    } else {
-                        System.out.println("0번 버튼 에러");
-                    }
-                    break;
-
-
-//                사칙연산
-                case R.id.button_plu:
-                    System.out.println("button_plu");
-                    if(strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){calculatorSymbol.setText(plu);System.out.println("button_plu 1");} // 초기화 기호 입력
-                    else if(strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){calculatorSymbol.setText(plu);System.out.println("button_plu 2");} // symbol 변경
-
-                    else if(!strValue.equals(zer)&&!(symValue.length()>0)&&!(hidValue.length()>0)){calculatorSymbol.setText(plu);System.out.println("button_plu 3");} // symbol 입력
-                    else if(!strValue.equals(zer)&&(symValue.length()>0)&&!(hidValue.length()>0)){
-                        calculatorSymbol.setText(plu);
-                        System.out.println("button_plu 4");
-                    } // symbol 변경
-                    else if(!strValue.equals(zer)&&(symValue.length()>0)&&(hidValue.length()>0)){
-                        System.out.println("button_plu 5");// 연산
-                        System.out.println("plu : " + strValue + "/ " + hidValue + "/ " + symValue);
-                        calculResult = methodEqu(strValue, hidValue, symValue);
-                        System.out.println("calculResult : " + calculResult);
-                        calculatorNumber.setText(calculResult);
-                        calculatorSymbol.setText(plu);
-                        calculatorHiddenNumber.setText(zer);
-                        /*if(hisValue.length()>0){ // history 입력
-                            calculatorHistory.setText(hisValue + strValue + symValue + hidValue + plu);
-                        } else {
-                            calculatorHistory.setText(strValue + symValue + hidValue + plu);
-                        }*/
-                    }
-                    else{
-                        System.out.println("덧셈 에러 식");
-                    }
-
-                    break;
-                case R.id.button_min:
-                case R.id.button_mul:
-                case R.id.button_div:
-                    calculResult = methodEqu(hidValue, strValue, symValue);
-                    calculatorHistory.setText(hidValue + symValue + strValue);
-                    calculatorNumber.setText(calculResult);
-
-                    break;
-                case R.id.button_dot:
-
-                case R.id.button_equ:
-                    calculResult = methodEqu(hidValue, strValue, symValue);
+                }
 
             }
+            System.out.println("mClickListenerNumber() --> " + calculatorHiddenNumber1.getText().toString() + ", " + calculatorHiddenNumber2.getText().toString() +
+                    ", "  + calculatorSymbol.getText().toString() + ","  + temp);
+
         }
     };
 
-    public static String methodEqu(String num1, String num2, String sym){
+    /* 심볼 버튼 눌렸을때 동작 */
+    View.OnClickListener mClickListenerSymbol = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            System.out.println("mClickListenerSymbol()");
+
+            String hiddenNumb1 = calculatorHiddenNumber1.getText().toString();
+            String hiddenNumb2 = calculatorHiddenNumber2.getText().toString();
+            String hiddenSymbol = calculatorSymbol.getText().toString();
+            String temp = null;
+
+            if((v.getId()==R.id.button_ac)||(v.getId()==R.id.button_dot)||(v.getId()==R.id.button_equ)){
+                switch (v.getId()){
+                    case R.id.button_ac :
+                        if(button_ac.getText().equals("c")){
+                            if(hiddenSymbol.equals(null)||hiddenSymbol.equals("")){
+                                if(hiddenNumb1.equals(null)||hiddenNumb1.equals("")){
+//                                Error status
+                                    calculatorNumber.setText("Error status 1");
+                                } else {
+                                    calculatorHiddenNumber1.setText(null);
+                                    calculatorNumber.setText(zer);
+                                }
+                            } else {
+                                if(hiddenNumb2.equals(null)||hiddenNumb2.equals("")){
+//                                Error status
+                                    calculatorNumber.setText("Error status 2");
+                                } else {
+                                    calculatorHiddenNumber2.setText(null);
+                                    calculatorNumber.setText(zer);
+                                }
+                            }
+                        } else {
+                            calculatorHiddenNumber1.setText(null);
+                            calculatorHiddenNumber2.setText(null);
+                            calculatorSymbol.setText(null);
+                            calculatorNumber.setText(zer);
+                        }
+                        break;
+                    case R.id.button_dot :
+
+                        break;
+                    case R.id.button_equ :
+                        if(hiddenNumb1.equals(null)||hiddenNumb1.equals("")){
+//                        Error status
+                            System.out.println("Not Calculator 1");
+                        } else {
+                            if(hiddenSymbol.equals(null)||hiddenSymbol.equals("")){
+//                            Error status
+                                System.out.println("Not Calculator 2");
+                            } else {
+                                if(hiddenNumb2.equals(null)||hiddenNumb2.equals("")){
+                                    String result = methodEqu(hiddenNumb1, hiddenNumb1, hiddenSymbol);
+                                    calculatorNumber.setText(result);
+                                } else {
+                                    String result = methodEqu(hiddenNumb1, hiddenNumb2, hiddenSymbol);
+                                    calculatorNumber.setText(result);
+                                }
+                            }
+                        }
+                        break;
+
+                }
+            } else {
+                if (hiddenNumb1.equals(null)||hiddenNumb1.equals("")) {
+                    System.out.println("a");
+                    switch (v.getId()) {
+//                    case R.id.button_ac:
+//                        break;
+                        case R.id.button_plu:
+                            temp = plu;
+                            break;
+                        case R.id.button_min:
+                            temp = min;
+                            break;
+                        case R.id.button_mul:
+                            temp = mul;
+                            break;
+                        case R.id.button_div:
+                            temp = div;
+                            break;
+//                    case R.id.button_dot:
+//                        break;
+//                    case R.id.button_equ:
+//                        break;
+                    }
+                    System.out.println("a-2 : " + temp);
+                    calculatorSymbol.setText(temp);
+                } else {
+                    System.out.println("b-1");
+                    if (hiddenSymbol.equals(null)||hiddenSymbol.equals("")) {
+                        switch (v.getId()) {
+//                        case R.id.button_ac:
+//                            break;
+                            case R.id.button_plu:
+                                temp = plu;
+                                break;
+                            case R.id.button_min:
+                                temp = min;
+                                break;
+                            case R.id.button_mul:
+                                temp = mul;
+                                break;
+                            case R.id.button_div:
+                                temp = div;
+                                break;
+//                        case R.id.button_dot:
+//                            break;
+//                        case R.id.button_equ:
+//                            break;
+                        }
+                        System.out.println("b-1 : " + temp);
+                        calculatorSymbol.setText(temp);
+                    } else {
+                        System.out.println("b-2");
+                        if (hiddenNumb2.equals(null)||hiddenNumb2.equals("")) {
+                            switch (v.getId()) {
+//                            case R.id.button_ac:
+//                                break;
+                                case R.id.button_plu:
+                                    temp = plu;
+                                    break;
+                                case R.id.button_min:
+                                    temp = min;
+                                    break;
+                                case R.id.button_mul:
+                                    temp = mul;
+                                    break;
+                                case R.id.button_div:
+                                    temp = div;
+                                    break;
+//                            case R.id.button_dot:
+//                                break;
+//                            case R.id.button_equ:
+//                                break;
+                            }
+                            System.out.println("b-2 : " + temp);
+                            calculatorSymbol.setText(temp);
+                        } else {
+                            System.out.println("b-3");
+                            String result = methodEqu(hiddenNumb1, hiddenNumb2, hiddenSymbol);
+                            calculatorHiddenNumber1.setText(result);
+                            calculatorHiddenNumber2.setText(null);
+                            calculatorNumber.setText(result);
+                            switch (v.getId()) {
+//                            case R.id.button_ac:
+//                                break;
+                                case R.id.button_plu:
+                                    temp = plu;
+                                    break;
+                                case R.id.button_min:
+                                    temp = min;
+                                    break;
+                                case R.id.button_mul:
+                                    temp = mul;
+                                    break;
+                                case R.id.button_div:
+                                    temp = div;
+                                    break;
+//                            case R.id.button_dot:
+//                                break;
+//                            case R.id.button_equ:
+//                                break;
+                            }
+                            System.out.println("b-3 : " + temp);
+                            calculatorSymbol.setText(temp);
+                        }
+                    }
+                }
+            }
+
+
+
+
+        }
+    };
+
+//    Calculator result method
+    public static String methodEqu(String num1, String num2, String sym) {
+        System.out.println("methodEqu()");
         String equResult = null;
 
         int intNum1 = 0;
@@ -557,14 +481,14 @@ public class MainActivity extends AppCompatActivity {
         double doubleNum1 = 0;
         double doubleNum2 = 0;
 
-        if(num1.equals(null)||num1.equals("")){
+        if (num1.equals(null) || num1.equals("")) {
             num1 = "0";
         }
-        if(num2.equals(null)||num2.equals("")){
+        if (num2.equals(null) || num2.equals("")) {
             num2 = "0";
         }
 
-        if(!(num1.contains(dot))&&!(num2.contains(dot))){ // 정수 연산
+        if (!(num1.contains(dot)) && !(num2.contains(dot))) { // 정수 연산
             intNum1 = Integer.parseInt(num1);
             intNum2 = Integer.parseInt(num2);
         } else {
@@ -572,22 +496,25 @@ public class MainActivity extends AppCompatActivity {
             doubleNum2 = Double.parseDouble(num2);
         }
 
-        if(sym.equals(plu)){
+        if (sym.equals(plu)) {
             equResult = String.valueOf(intNum1 + intNum2 + doubleNum1 + doubleNum2);
-        } else if(sym.equals(min)){
-            if((intNum1<intNum2)||(doubleNum1<doubleNum2)){
-                equResult = String.valueOf(min + ((intNum2-intNum1)+(doubleNum2-doubleNum1)));
+        } else if (sym.equals(min)) {
+            if ((intNum1 < intNum2) || (doubleNum1 < doubleNum2)) {
+                equResult = String.valueOf(min + ((intNum2 - intNum1) + (doubleNum2 - doubleNum1)));
             } else {
-                equResult = String.valueOf(intNum1-intNum2 + doubleNum1-doubleNum2);
+                equResult = String.valueOf(intNum1 - intNum2 + doubleNum1 - doubleNum2);
             }
-        } else if(sym.equals(mul)){
-            equResult = String.valueOf((intNum1*intNum2) + (doubleNum1*doubleNum2));
-        } else if(sym.equals(div)){
-            equResult = String.valueOf((intNum1/intNum2) + (doubleNum1/doubleNum2));
+        } else if (sym.equals(mul)) {
+            equResult = String.valueOf((intNum1 * intNum2) + (doubleNum1 * doubleNum2));
+        } else if (sym.equals(div)) {
+            equResult = String.valueOf((intNum1 / intNum2) + (doubleNum1 / doubleNum2));
         }
 
         System.out.println("methodEqu(equResult): " + equResult);
 
+
         return equResult;
-    };
+    }
+
+
 }
