@@ -136,8 +136,7 @@ public class MainActivity extends AppCompatActivity {
             String hiddenSymbol = calculatorSymbol.getText().toString().trim();
             String temp = null;
 
-            if (hiddenNumb1.equals(null)||hiddenNumb1.equals("")) {
-                System.out.println("1");
+            if (hiddenNumb1.equals(null)||hiddenNumb1.equals("")||hiddenNumb1.equals(zer)) {
                 switch (v.getId()) {
                     case R.id.button_1:
                         temp = numOne;
@@ -172,10 +171,8 @@ public class MainActivity extends AppCompatActivity {
                 }
                 calculatorHiddenNumber1.setText(temp);
                 calculatorNumber.setText(temp);
-            } else {
-                System.out.println("2");
+            } else { // hidden number1 not null
                 if (hiddenSymbol.equals(null)||hiddenSymbol.equals("")) {
-                    System.out.println("3");
                     switch (v.getId()) {
                         case R.id.button_1:
                             temp = hiddenNumb1 + numOne;
@@ -210,10 +207,8 @@ public class MainActivity extends AppCompatActivity {
                     }
                     calculatorHiddenNumber1.setText(temp);
                     calculatorNumber.setText(temp);
-                } else {
-                    System.out.println("4");
-                    if (hiddenNumb2.equals(null)||hiddenNumb2.equals("")) {
-                        System.out.println("5");
+                } else { // Symbol not null
+                    if (hiddenNumb2.equals(null)||hiddenNumb2.equals("")||hiddenNumb2.equals(zer)) {
                         switch (v.getId()) {
                             case R.id.button_1:
                                 temp = numOne;
@@ -249,7 +244,6 @@ public class MainActivity extends AppCompatActivity {
                         calculatorHiddenNumber2.setText(temp);
                         calculatorNumber.setText(temp);
                     } else {
-                        System.out.println("6");
                         switch (v.getId()) {
                             case R.id.button_1:
                                 temp = hiddenNumb2 + numOne;
@@ -299,6 +293,12 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             System.out.println("mClickListenerSymbol()");
+
+            if(!calculatorNumber.getText().toString().equals(zer)){
+                button_ac.setText("c");
+            } else {
+                button_ac.setText("ac");
+            }
 
             String hiddenNumb1 = calculatorHiddenNumber1.getText().toString();
             String hiddenNumb2 = calculatorHiddenNumber2.getText().toString();
@@ -481,37 +481,62 @@ public class MainActivity extends AppCompatActivity {
         double doubleNum1 = 0;
         double doubleNum2 = 0;
 
-        if (num1.equals(null) || num1.equals("")) {
-            num1 = "0";
-        }
-        if (num2.equals(null) || num2.equals("")) {
-            num2 = "0";
-        }
+        if(num1.contains(dot)||num2.contains(dot)){ // double 연산
+            if (num1.equals(null) || num1.equals("")) {
+                num1 = "0";
+            }
+            if (num2.equals(null) || num2.equals("")) {
+                num2 = "0";
+            }
 
-        if (!(num1.contains(dot)) && !(num2.contains(dot))) { // 정수 연산
+                doubleNum1 = Double.parseDouble(num1);
+                doubleNum2 = Double.parseDouble(num2);
+
+
+            if (sym.equals(plu)) {
+                equResult = String.valueOf(doubleNum1 + doubleNum2);
+            } else if (sym.equals(min)) {
+                if (doubleNum1 < doubleNum2) {
+                    equResult = String.valueOf(min + (doubleNum2 - doubleNum1));
+                } else {
+                    equResult = String.valueOf(doubleNum1 - doubleNum2);
+                }
+            } else if (sym.equals(mul)) {
+                equResult = String.valueOf(doubleNum1 * doubleNum2);
+            } else if (sym.equals(div)) {
+                equResult = String.valueOf(doubleNum1 / doubleNum2);
+            }
+
+
+        } else { // int 연산
+            if (num1.equals(null) || num1.equals("")) {
+                num1 = "0";
+            }
+            if (num2.equals(null) || num2.equals("")) {
+                num2 = "0";
+            }
+
+
             intNum1 = Integer.parseInt(num1);
             intNum2 = Integer.parseInt(num2);
-        } else {
-            doubleNum1 = Double.parseDouble(num1);
-            doubleNum2 = Double.parseDouble(num2);
-        }
 
-        if (sym.equals(plu)) {
-            equResult = String.valueOf(intNum1 + intNum2 + doubleNum1 + doubleNum2);
-        } else if (sym.equals(min)) {
-            if ((intNum1 < intNum2) || (doubleNum1 < doubleNum2)) {
-                equResult = String.valueOf(min + ((intNum2 - intNum1) + (doubleNum2 - doubleNum1)));
-            } else {
-                equResult = String.valueOf(intNum1 - intNum2 + doubleNum1 - doubleNum2);
+
+            if (sym.equals(plu)) {
+                equResult = String.valueOf(intNum1 + intNum2);
+            } else if (sym.equals(min)) {
+                if (intNum1 < intNum2) {
+                    equResult = String.valueOf(min + (intNum2 - intNum1));
+                } else {
+                    equResult = String.valueOf(intNum1 - intNum2);
+                }
+            } else if (sym.equals(mul)) {
+                equResult = String.valueOf(intNum1 * intNum2);
+            } else if (sym.equals(div)) {
+                equResult = String.valueOf(intNum1 / intNum2);
             }
-        } else if (sym.equals(mul)) {
-            equResult = String.valueOf((intNum1 * intNum2) + (doubleNum1 * doubleNum2));
-        } else if (sym.equals(div)) {
-            equResult = String.valueOf((intNum1 / intNum2) + (doubleNum1 / doubleNum2));
         }
 
         System.out.println("methodEqu(equResult): " + equResult);
-
 
         return equResult;
     }
