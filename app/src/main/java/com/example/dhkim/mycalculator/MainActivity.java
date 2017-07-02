@@ -334,7 +334,41 @@ public class MainActivity extends AppCompatActivity {
                         }
                         break;
                     case R.id.button_dot :
-
+                        if(hiddenNumb1.equals(null)||hiddenNumb1.equals("")||hiddenNumb1.equals(zer)){
+                            if(hiddenNumb1.contains(dot)){
+                                calculatorHiddenNumber1.setText(zer + dot);
+                                calculatorNumber.setText(zer + dot);
+                            } else {
+                                calculatorHiddenNumber1.setText(zer + dot);
+                                calculatorNumber.setText(zer + dot);
+                            }
+                        } else {
+                            if(hiddenSymbol.equals(null)||hiddenSymbol.equals("")){
+                                if(hiddenNumb1.contains(dot)){
+                                    break;
+                                } else {
+                                    calculatorHiddenNumber1.setText(hiddenNumb1 + dot);
+                                    calculatorNumber.setText(hiddenNumb1 + dot);
+                                }
+                            } else {
+                                if(hiddenNumb2.equals(null)||hiddenNumb2.equals("")||hiddenNumb2.equals(zer)){
+                                    if(hiddenNumb2.contains(dot)){
+                                        calculatorHiddenNumber2.setText(zer + dot);
+                                        calculatorNumber.setText(zer + dot);
+                                    } else {
+                                        calculatorHiddenNumber2.setText(zer + dot);
+                                        calculatorNumber.setText(zer + dot);
+                                    }
+                                } else {
+                                    if(hiddenNumb2.contains(dot)){
+                                        break;
+                                    } else {
+                                        calculatorHiddenNumber2.setText(hiddenNumb2 + dot);
+                                        calculatorNumber.setText(hiddenNumb2 + dot);
+                                    }
+                                }
+                            }
+                        }
                         break;
                     case R.id.button_equ :
                         if(hiddenNumb1.equals(null)||hiddenNumb1.equals("")){
@@ -357,7 +391,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                 }
-            } else {
+            } else { // Arithmetic operation
                 if (hiddenNumb1.equals(null)||hiddenNumb1.equals("")) {
                     System.out.println("a");
                     switch (v.getId()) {
@@ -482,31 +516,67 @@ public class MainActivity extends AppCompatActivity {
         double doubleNum2 = 0;
 
         if(num1.contains(dot)||num2.contains(dot)){ // double 연산
-            if (num1.equals(null) || num1.equals("")) {
-                num1 = "0";
-            }
-            if (num2.equals(null) || num2.equals("")) {
-                num2 = "0";
-            }
+            String[] num1arr = num1.split("\\.");
+            String[] num2arr = num2.split("\\.");
+
+            if((num1arr.length<2)&&(num2arr.length<2)){
+                // int 연산해야 되는 경우
+                System.out.println("Integer 연산");
+
+                if (num1.equals(null) || num1.equals("")) {
+                    num1 = "0";
+                }
+                if (num2.equals(null) || num2.equals("")) {
+                    num2 = "0";
+                }
+
+
+                intNum1 = Integer.parseInt(num1arr[0]);
+                intNum2 = Integer.parseInt(num2arr[0]);
+
+
+                if (sym.equals(plu)) {
+                    equResult = String.valueOf(intNum1 + intNum2);
+                } else if (sym.equals(min)) {
+                    if (intNum1 < intNum2) {
+                        equResult = String.valueOf(min + (intNum2 - intNum1));
+                    } else {
+                        equResult = String.valueOf(intNum1 - intNum2);
+                    }
+                } else if (sym.equals(mul)) {
+                    equResult = String.valueOf(intNum1 * intNum2);
+                } else if (sym.equals(div)) {
+                    equResult = String.valueOf(intNum1 / intNum2);
+                }
+
+            } else {
+                // double 연산해야 되는 경우
+                System.out.println("Double 연산");
+                if (num1.equals(null) || num1.equals("")) {
+                    num1 = "0";
+                }
+                if (num2.equals(null) || num2.equals("")) {
+                    num2 = "0";
+                }
 
                 doubleNum1 = Double.parseDouble(num1);
                 doubleNum2 = Double.parseDouble(num2);
 
 
-            if (sym.equals(plu)) {
-                equResult = String.valueOf(doubleNum1 + doubleNum2);
-            } else if (sym.equals(min)) {
-                if (doubleNum1 < doubleNum2) {
-                    equResult = String.valueOf(min + (doubleNum2 - doubleNum1));
-                } else {
-                    equResult = String.valueOf(doubleNum1 - doubleNum2);
+                if (sym.equals(plu)) {
+                    equResult = String.valueOf(doubleNum1 + doubleNum2);
+                } else if (sym.equals(min)) {
+                    if (doubleNum1 < doubleNum2) {
+                        equResult = String.valueOf(min + (doubleNum2 - doubleNum1));
+                    } else {
+                        equResult = String.valueOf(doubleNum1 - doubleNum2);
+                    }
+                } else if (sym.equals(mul)) {
+                    equResult = String.valueOf(doubleNum1 * doubleNum2);
+                } else if (sym.equals(div)) {
+                    equResult = String.valueOf(doubleNum1 / doubleNum2);
                 }
-            } else if (sym.equals(mul)) {
-                equResult = String.valueOf(doubleNum1 * doubleNum2);
-            } else if (sym.equals(div)) {
-                equResult = String.valueOf(doubleNum1 / doubleNum2);
             }
-
 
         } else { // int 연산
             if (num1.equals(null) || num1.equals("")) {
